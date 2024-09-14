@@ -256,6 +256,13 @@ establish the circut
 
 12.8+0.5 = 13.3
 ```
+![alt text](image-18.png)
+![alt text](image-19.png)
+
+![alt text](image-20.png)
+![alt text](image-21.png)
+
+![alt text](image-22.png)
 
 ## Regional ISPs and ISP Points of Presence (PoP)区域ISP和ISP存在点(PoP)
 
@@ -362,14 +369,21 @@ Understanding these concepts is crucial for designing efficient networks and cho
 - **丢包和吞吐量**：高丢包率会减少吞吐量，因为必要的重传会占用额外的带宽和处理资源。
 
 理解这些概念对于设计高效网络以及选择正确的技术和策略以缓解网络性能问题至关重要。
+![alt text](image-23.png)
 
 ![alt text](image-4.png)
 
 ![alt text](image-3.png)
 ![alt text](image-5.png)
 
-# 节点延迟的组成部分
+![alt text](image-24.png)
+![alt text](image-25.png)
+![alt text](image-26.png)
 
+# 节点延迟的组成部分
+![alt text](image-27.png)
+![alt text](image-28.png)
+![alt text](image-29.png)
 在网络中，数据包从一个节点传输到下一个节点的过程中，会遇到多种不同类型的延迟。这些延迟累积起来，形成了 **总节点延迟**。下面详细解释各个延迟的类型：
 
 ## 1. 节点处理延迟 (node Processing Delay)
@@ -561,10 +575,104 @@ P2P文件共享系统。任何时刻的瞬时吞吐量是速率（以位/秒为�
 图 1.19(b) 现在显示了服务器和客户端之间有 N 个链路的网络，其中 R1、R2、…、RN。
 N 个链路的传输速率 应用与双链路网络相同的分析，我们发现从服务器到客户端的文件传输的吞吐量为 min{R1,R2,…, ,}NR，其中
 
+![alt text](image-15.png)common link divides its transmission rate equally among the 10 downloads. Then the bottleneck foreach download is no longer in the access network, but is now instead the shared link in the core, whichonly provides each download with 500 kbps of throughput. Thus the end-to-end throughput for each download is now reduced to 500 kbps.
 
+## 1.5 协议层及其服务模型
+
+### 1.5.1 分层架构
+它只是在更改后以不同的方式实现该功能。为了
+不断更新的大型复杂系统，改变实施的能力
+服务的另一个重要优点是不影响系统的其他组件
+分层。
+
+### Protocol Layering协议分层
+![alt text](image-16.png)
+
+### Application Layer 应用层
+应用层是网络应用程序及其应用层协议所在的地方。这
+Internet的应用层包括许多协议，例如HTTP协议（它为Web提供了
+文档请求和传输）、SMTP（提供电子邮件消息的传输）和 FTP
+（它提供两个终端系统之间的文件传输）。我们会看到某个网络
+功能，例如将互联网终端系统的人类友好名称（如 www.ietf.org）转换为 32 位网络地址，也是在特定应用层协议的帮助下完成的，即
+域名系统 (DNS)。我们将在第 2 章中看到，创建和部署我们自己的新应用程序层协议非常容易。
+应用层协议分布在多个端系统，应用程序位于一端
+系统使用该协议与另一端的应用程序交换信息包
+系统。我们将应用层的这个信息包称为**消息**
+
+### transport layer 传输层
+
+互联网的传输层在应用程序端点之间传输应用程序层消息。在
+互联网有两种传输协议：TCP 和 UDP，其中任何一种都可以传输应用程序
+层消息。 TCP 为其应用程序提供面向连接的服务。该服务包括
+保证将应用层消息传送到目的地并进行流量控制（即
+发送器/接收器速度匹配）。 TCP 还将长消息分成较短的段并提供
+拥塞控制机制，以便当网络拥塞时源可以限制其传输速率
+拥挤。 UDP 协议为其应用程序提供无连接服务。这是一个没有多余装饰的
+不提供可靠性、流量控制和拥塞控制的服务。在本书中，我们将参考
+传输层数据包作为一个段
+The Internet’s transport layer transports application-layer messages between application endpoints. In the Internet there are two transport protocols, TCP and UDP, either of which can transport applicationlayer messages. TCP provides a connection-oriented service to its applications. This service includesguaranteed delivery of application-layer messages to the destination and flow control (that is,sender/receiver speed matching). TCP also breaks long messages into shorter segments and provides a congestion-control mechanism, so that a source throttles its transmission rate when the network is congested. The UDP protocol provides a connectionless service to its applications. This is a no-frills service that provides no reliability, no flow control, and no congestion control. In this book, we’ll refer to a transport-layer packet as a **segment**.
+### Network Layer
+互联网的网络层负责将称为数据报的网络层数据包从一台主机到另一台主机。源主机中的互联网传输层协议（TCP 或 UDP）传递一个传输层段和网络层的目标地址，就像您给出的那样邮政服务一封带有目的地地址的信件。然后网络层提供的服务将数据段传送到目标主机中的传输层。互联网的网络层包括著名的 IP 协议，它定义了数据报中的字段以及终端系统和路由器如何作用于这些字段。 IP协议只有一种，所有的具有网络层的 Internet 组件必须运行 IP 协议。互联网的网络层还包含路由协议，用于确定数据报在源和源之间采用的路由目的地。互联网有许多路由协议。正如我们在1.3节中看到的，互联网是一个网络的网络，在一个网络内，网络管理员可以运行任何路由协议想要的。虽然网络层既包含IP协议，又包含众多的路由协议，但它通常简称为IP层，反映了IP是粘合互联网的粘合剂这一事实一起
+### Link Layer 
+要将数据包从一个节点（主机或路由器）移动到路由中的下一个节点，网络层依赖于链路层的服务。特别地，在每个节点，网络层传递数据报向下传送到链路层，链路层将数据报传送到沿途的下一个节点。在此下一个节点，链路层将数据报传递到网络层。
+例如，数据报可以是在一个链路上由以太网处理，在下一个链路上由 PPP 处理。网络层会收到不同的来自每个不同链路层协议的服务。在本书中，我们将链路层数据包称为帧。
+### pyhsical layer 物理层
+链路层的工作是将整个帧从一个网络元素移动到相邻网络
+元素，物理层的工作是将帧内的各个位从一个节点移动到下一个节点。该层中的协议再次依赖于链路并进一步依赖于实际传输
+链路介质（例如，双绞铜线、单模光纤）。例如，
+以太网有许多物理层协议：一种用于双绞铜线，另一种用于同轴电缆，
+另一个用于纤维，等等。在每种情况下，都会以不同的方式在链路上移动一个位
+
+## OSI 模型
+OSI参考模型的七层如图1.23(b)所示，分别是：应用层、表示层、会话层、传输层、网络层、数据链路层和物理层。这
+其中五个层的功能与它们类似命名的互联网对应层的功能大致相同
+
+两个附加层——表示层和会话层。
+表示层的作用是提供允许通信的服务应用程序解释交换数据的含义。这些服务包括数据压缩和数据加密（这是不言自明的）以及数据描述（这释放了应用程序不必担心数据表示/存储的内部格式——可能的格式一台计算机与另一台计算机有所不同）。会话层提供了定界和同步
+数据交换，包括构建检查点和恢复方案的方法
+互联网缺少 OSI 参考模型中的两层，这带来了一些问题
+有趣的问题：这些层提供的服务不重要吗？如果申请的话怎么办需要其中一项服务？互联网对这两个问题的答案是相同的——这取决于应用程序开发人员。由应用程序开发人员决定服务是否重要以及是否重要该服务很重要，由应用程序开发人员将该功能构建到应用程序中。
+
+## 1.5.2 封装
+
+![alt text](image-17.png)
+正如我们在本书后面讨论的那样，
+路由器和链路层交换机都是分组交换机。类似于终端系统、路由器和链路层
+交换机将其网络硬件和软件分层组织。但是路由器和链路层
+交换机并不实现协议栈中的所有层；他们通常只实现
+底层。如图1.24所示，链路层交换机实现第1层和第2层；路由器实现第 1 层到第 3 层。这意味着，例如，互联网路由器能够虽然链路层交换机不识别 IP 地址，但它们能够识别第 2 层地址，例如以太网地址。请注意，主机实现了所有五层；这与认为互联网架构将其大部分复杂性置于网络边缘的观点这应用层消息和传输层头信息共同构成了传输层层段。因此，传输层段封装了应用层消息。这添加的信息可能包括允许接收方传输层传递信息的信息消息发送到适当的应用程序，以及允许接收器确定错误检测位消息中的位是否已在路由中更改。然后传输层传递该段到网络层，添加网络层头信息（图1.24中的Hn），例如source和目标端系统地址，创建网络层数据报。那么数据报就是传递到链路层，链路层（当然！将添加自己的链路层标头信息并创建一个链路层帧。因此，我们看到在每一层，数据包都有两种类型的字段：标头字段和
+有效负载字段。有效负载通常是来自上层的数据包
+
+假设爱丽丝在一个分支机构，想要向鲍勃发送一份备忘录，
+谁在另一个分支机构。备忘录类似于应用层消息。 Alice 将主题放入一个办公室间信封中，信封正面写有 Bob 的姓名和部门。办公室间信封类似于传输层段，它包含标头信息（Bob 的姓名和部门编号），并封装应用层消息（备忘录）。
+当发送分支办公室的邮件收发室收到局间信封时，会将其放入局间信封中信封里面还有另一个信封，适合通过公共邮政服务发送。发送邮件室还将发送和接收分支机构的邮政地址写在邮件上。邮政信封。在这里，邮政信封类似于数据报——它封装了传输层段（局间信封），而传输层段又封装了原始消息（备忘录）。邮政服务将邮政信封递送至接收分支机构的收发室。在那里，过程开始解封装。收发室提取办公室间备忘录并将其转发给鲍勃。最后，鲍勃打开信封并取出备忘录。封装过程可能比上述过程更复杂。例如，一个大消息可以分为多个传输层段（每个段本身可能是分为多个网络层数据报）。在接收端，这样的段必须是
+从其组成数据报重建
+![alt text](image-30.png)
+![alt text](image-31.png)
+![alt text](image-32.png)
+![alt text](image-33.png)
+![alt text](image-34.png)
+![alt text](image-35.png)
+![alt text](image-36.png)
+![alt text](image-37.png)
+![alt text](image-38.png)
+![alt text](image-39.png)
+![alt text](image-40.png)
+![alt text](image-41.png)
+![alt text](image-42.png)
+![alt text](image-43.png)
+![alt text](image-44.png)
+![alt text](image-45.png)
+![alt text](image-46.png)
+![alt text](image-47.png)
+![alt text](image-48.png)
 
 ## 课外补充
 ![alt text](image-14.png)
+当把各个层的协议放在一起时，就称为协议栈。互联网
+协议栈由五层组成：物理层、链路层、网络层、传输层和应用层，
+
+
 ### WAN（广域网）：
 
 定义：WAN（Wide Area Network，广域网）是覆盖广泛地理区域的网络，通常连接不同城市、国家或甚至全球的网络。它主要用于长距离的数据传输。
@@ -582,3 +690,260 @@ N 个链路的传输速率 应用与双链路网络相同的分析，我们发�
 ### wpan/pan 个人局域网
 
 ### bandwidth 带宽，原本是信号范围，网络中代表最高的传输能力
+
+
+
+
+# second 112-174， Application Architecture 116-125, example of client-server architectures: HTTP 129-138, and DNS 160-169
+
+### TCP/UDP
+SSL is not a third Internet transport protocol, on the same level as TCP and UDP, but instead is an enhancement of the TCP
+
+### RTT
+表示一个数据包从发送端发出，经过网络到达接收端，接收端处理后发送响应，再经过网络返回到发送端的**整个来回时间过程**。
+![alt text](image-49.png)
+
+![alt text](image-50.png)
+The first line of an HTTP request message is called the request line; the subsequent lines are called
+the header lines. The request line has three fields: **1.the method field, 2.the URL field, and 3. the HTTP version field.**
+ The method field can take on several different values, including **GET, POST, HEAD,
+PUT, and DELETE** . The great majority of HTTP request messages use the GET method. The GET method is used when the browser requests an object, with the requested object identified in the URLfield. In this example, the browser is requesting the object /somedir/page.html . The version is self explanatory; in this example, the browser implements version HTTP/1.1.
+
+
+The `header line Host`: `www.someschool.edu` specifies the host on which the object resides. You might think that this header line is unnecessary,as there is already a TCP connection in place to the host. But, as we’ll see in Section 2.2.5, the information provided by the host header line is required by Web `proxy caches`. By including the Connection:close header line, the browser is telling the server that it doesn’t want to bother with persistent connections; it wants the server to close the connection after sending the requested object. The `Useragent`: header line specifies the user agent, that is, the browser type that is making the request to the
+server. Here the user agent is `Mozilla/5.0`, a Firefox browser. This header line is useful because the server can actually send different versions of the same object to different types of `user agents`. (Each ofthe versions is addressed by the same URL.) Finally, the Accept-language: header indicates thatthe user prefers to receive a French version of the object, if such an object exists on the server;otherwise, the server should send its default version. The Accept-language: header is just one of many content negotiation headers available in HTTP.
+![alt text](image-51.png)
+Request line（请求行）：包含HTTP方法、URL和HTTP版本，它们之间用空格（sp）分隔，最后用crlf表示该行结束。
+Header lines（头部行）：由多个头部字段组成，每个字段由字段名、空格（sp）和字段值组成，同样以crlf表示每一行的结束。
+Blank line（空行）：crlf表示一个空行，用来分隔HTTP头部和实体内容。
+Entity body（实体内容）：这是HTTP请求中的实际数据，可以是空的或包含要传输的数据。
+![alt text](image-52.png)
+ It has three sections: `an initial status line`, `six
+header lines`, and then the `entity body`
+
+`200 OK`: Request succeeded and the information is returned in the response.
+`301 Moved Permanently`: Requested object has been permanently moved; the new URL is specified in Location : header of the response message. The client software will automatically retrieve the new URL.
+`400 Bad Request`: This is a generic error code indicating that the request could not be
+understood by the server.
+`404 Not Found`: The requested document does not exist on this server.
+`505 HTTP Version Not Supported`: The requested HTTP protocol version is not supported
+by the server
+
+cookie technology has four components: (1) a cookie header line in the HTTP
+response message; (2) a cookie header line in the HTTP request message; (3) a cookie file kept on the
+user’s end system and managed by the user’s browser; and (4) a back-end database at the Web site.
+![alt text](image-53.png)
+
+### web caching
+![alt text](image-54.png)
+1. 浏览器与Web缓存建立TCP连接，并向Web缓存发送HTTP请求
+将对象添加到 Web 缓存中。
+2. Web 缓存检查是否有本地存储的对象副本。如果是的话，网络
+缓存将 HTTP 响应消息中的对象返回给客户端浏览器
+3. 如果Web缓存没有该对象，则Web缓存打开到源端的TCP连接
+服务器，即 www.someschool.edu。然后 Web 缓存发送 HTTP 请求
+对象进入缓存到服务器的 TCP 连接。源服务器收到该请求后
+将 HTTP 响应中的对象发送到 Web 缓存。
+4. 当Web缓存接收到对象时，它会在本地存储中存储一个副本并发送一个副本，
+在 HTTP 响应消息中，发送到客户端浏览器（通过现有的 TCP 连接）
+客户端浏览器和 Web 缓存之间）
+
+Typically a Web cache is purchased and installed by an ISP. 
+
+
+Suppose that the HTTP request messages are negligibly small and thus create no traffic in the networks or in the access link (from institutional router to Internet router). Also suppose that the amount of time it takes from when the router on the Internet side of the access link in Figure 2.12 forwards an HTTP request (within an IP datagram) until it receives the response (typically within many IP datagrams) is two seconds on average. Informally, we refer to this last delay as the “Internet delay.”
+![alt text](image-55.png)
+![alt text](image-56.png)
+总结：通过升级接入链路到100 Mbps可以减少流量强度并降低延迟，但成本较高。使用Web缓存可减少访问链路的流量强度，使40%的请求在局域网内迅速满足，其余60%的请求则需要通过互联网，整体响应时间约为1.2秒。相比之下，Web缓存方案更经济且响应速度更快
+One possible solution is to increase the access rate from 15 Mbps to, say, 100 Mbps. This will lower the
+traffic intensity on the access link to 0.15, which translates to negligible delays between the two routers.
+In this case, the total response time will roughly be two seconds, that is, the Internet delay. But this
+solution also means that the institution must upgrade its access link from 15 Mbps to 100 Mbps, a costly
+proposition.
+Now consider the alternative solution of not upgrading the access link but instead installing a Web cache
+in the institutional network. This solution is illustrated in Figure 2.13. Hit rates—the fraction of requests
+that are satisfied by a cache— typically range from 0.2 to 0.7 in practice. For illustrative purposes, let’s
+suppose that the cache provides a hit rate of 0.4 for this institution. Because the clients and the cache
+are connected to the same high-speed LAN, 40 percent of the requests will be satisfied almost
+immediately, say, within 10 milliseconds, by the cache. Nevertheless, the remaining 60 percent of the
+requests still need to be satisfied by the origin servers. But with only 60 percent of the requested objects
+passing through the access link, the traffic intensity on the access link is reduced from 1.0 to 0.6.
+Typically, a traffic intensity less than 0.8 corresponds to a small delay, say, tens of milliseconds, on a 15
+Mbps link. This delay is negligible compared with the two-second Internet delay. Given these
+considerations, average delay therefore is
+which is just slightly greater than 1.2 seconds. Thus, this second solution provides an even lower
+response time than the first solution, and it doesn’t require the institution
+(15 requests/sec)⋅(1 Mbits/request)/(100 Mbps)=0.15
+(15 requests/sec)⋅(1 Mbits/request)/(15 Mbps)=1
+0.4⋅(0.01 seconds)+0.6⋅(2.01 seconds)
+
+
+
+一种可能的解决方案是将访问速率从 15 Mbps 提高到 100 Mbps。这将降低
+接入链路上的流量强度为 0.15，这意味着两个路由器之间的延迟可以忽略不计。
+在这种情况下，总响应时间大约为两秒，即互联网延迟。但这
+该解决方案还意味着该机构必须将其接入链路从 15 Mbps 升级到 100 Mbps，这是一个成本高昂的过程
+主张。
+现在考虑替代解决方案，不升级访问链接，而是安装 Web 缓存
+在机构网络中。该解决方案如图 2.13 所示。实际上，命中率（缓存满足的请求的比例）通常在 0.2 到 0.7 之间。为了便于说明，让我们
+假设缓存为该机构提供的命中率为 0.4。因为客户端和缓存
+连接到同一个高速LAN，40%的请求几乎可以得到满足
+立即，例如，在 10 毫秒内，通过缓存。尽管如此，剩下的 60%
+请求仍然需要由源服务器来满足。但只有 60% 的请求对象
+经过接入链路后，接入链路的流量强度从1.0降低到0.6。
+通常，小于 0.8 的流量强度对应于 15 条网络上的小延迟，例如几十毫秒。
+Mbps 链路。与两秒的互联网延迟相比，这个延迟可以忽略不计。鉴于这些
+考虑因素，因此平均延迟是
+0.4⋅(0.01秒)+0.6⋅(2.01秒)
+略大于 1.2 秒。因此，第二种解决方案提供了更低的
+响应时间比第一个解决方案快，并且不需要机构
+
+总结：通过升级接入链路到100 Mbps可以减少流量强度并降低延迟，但成本较高。使用Web缓存可减少访问链路的流量强度，使40%的请求在局域网内迅速满足，其余60%的请求则需要通过互联网，整体响应时间约为1.2秒。相比之下，Web缓存方案更经济且响应速度更快
+
+![alt text](image-57.png)
+升级其与互联网的链接。当然，该机构必须购买并安装一个 Web
+缓存。但这种成本很低——许多缓存使用在廉价 PC 上运行的公共领域软件。
+通过使用内容分发网络 (CDN)，Web 缓存日益发挥着重要作用
+在互联网中发挥重要作用。某 CDN 公司安装了许多地理分布的缓存
+整个互联网，从而本地化大部分流量。有共享 CDN（例如 Akamai
+和 Limelight）和专用 CDN（例如 Google 和 Netflix）。我们将更详细地讨论 CDN
+![alt text](image-58.png)
+
+缓存将对象转发到请求浏览器，但也在本地缓存该对象。重要的是，
+缓存还将最后修改日期与对象一起存储。第三次，一周后，另一次
+浏览器通过缓存请求同一个对象，并且该对象仍在缓存中。由于这个对象
+过去一周可能已在 Web 服务器上进行了修改，缓存通过以下方式执行最新检查
+发出有条件的 GET。具体来说，缓存发送
+![alt text](image-59.png)
+我们看到，为了响应条件 GET，Web 服务器仍然发送响应消息，但是
+响应消息中不包含请求的对象。包括请求的对象将
+只会浪费带宽并增加用户感知的响应时间，特别是当对象很大时。笔记
+最后一条响应消息的状态行中有 304 Not Modified，这告诉缓存：
+它可以继续将其（代理缓存）缓存的对象副本转发到请求浏览器。
+我们对 HTTP 的讨论到此结束，HTTP 是我们讨论的第一个互联网协议（应用层协议）
+详细研究了。我们已经了解了 HTTP 消息的格式以及 Web 客户端所采取的操作，
+服务器发送和接收这些消息。我们还研究了一些网络应用程序
+基础设施，包括缓存、cookie 和后端数据库，所有这些都以某种方式与
+HTTP 协议。
+
+## 2.3 互联网中的电子邮件
+![alt text](image-60.png)
+SMTP 是 Internet 电子邮件的主要应用层协议。它使用可靠的数据
+TCP 传输服务，用于将邮件从发件人的邮件服务器传输到收件人的邮件服务器。
+SMTP 有两个端： 客户端，在发送方的客户端上执行
+邮件服务器和服务器端，在收件人的邮件服务器上执行。客户端和服务器端都可以
+SMTP 的各个方面都在每个邮件服务器上运行。当邮件服务器向其他邮件服务器发送邮件时，它充当
+SMTP 客户端。当邮件服务器从其他邮件服务器接收邮件时，它充当 SMTP 服务器。
+
+## 2.3.1 邮件发送
+![alt text](image-61.png)
+![alt text](image-62.png)
+连接是香港和圣路易斯服务器之间的直接连接。特别是，如果鲍勃
+邮件服务器关闭，消息保留在 Alice 的邮件服务器中并等待新的尝试 -
+消息不会被放置在某些中间邮件服务器中。
+现在让我们仔细看看 SMTP 如何将邮件从发送邮件服务器传输到接收方
+接收邮件服务器。我们将看到 SMTP 协议与以下协议有许多相似之处：
+用于面对面的人际互动。一、客户端SMTP（运行在发送邮件服务器主机上）
+TCP 与服务器 SMTP 上的端口 25 建立连接（在接收邮件服务器上运行）
+主持人）。如果服务器关闭，客户端稍后会重试。一旦建立此连接，服务器
+和客户端执行一些应用层握手——就像人类经常自我介绍一样
+在将信息从一个传输到另一个之前，SMTP 客户端和服务器会进行自我介绍
+在传输信息之前。在此 SMTP 握手阶段，SMTP 客户端指示 e-
+发件人（生成邮件的人）的邮件地址和收件人的电子邮件地址
+接受者。一旦 SMTP 客户端和服务器相互介绍了自己，客户端就会发送
+消息。 SMTP 可以依靠 TCP 的可靠数据传输服务将消息发送到
+服务器没有错误。然后，如果客户端有其他连接，则在同一个 TCP 连接上重复此过程。
+发送到服务器的消息；否则，它指示 TCP 关闭连接。
+![alt text](image-63.png)
+在上面的例子中，客户端发送一条消息（“你喜欢番茄酱吗？怎么样？
+泡菜？”）从邮件服务器到邮件服务器 hamburger.edu。作为对话的一部分，crepes.fr
+客户端发出五个命令：HELO（HELLO 的缩写）、MAIL FROM、RCPT TO、DATA、
+并退出。这些命令是不言自明的。客户端还发送一行，其中包含一个
+句点，表示向服务器发送的消息的结束。 （在 ASCII 术语中，每条消息以
+CRLF.CRLF，其中 CR 和 LF 分别代表回车和换行。）服务器
+发出对每个命令的回复，每个回复都有一个回复代码和一些（可选）英语-
+语言解释。我们这里提到SMTP使用持久连接：如果发送邮件
+服务器有多条消息要发送到同一个接收邮件服务器，它可以发送所有消息
+通过同一个 TCP 连接。对于每条消息，客户端都会以新的 MAIL 开始该过程
+FROM: ，用隔离句点指定消息结尾，并在所有消息发送后仅发出 QUITcrepes.fra 。
+强烈建议您使用 Telnet 与 SMTP 服务器直接对话。要做的事
+![alt text](image-64.png)
+![alt text](image-65.png)
+![alt text](image-66.png)
+![alt text](image-67.png)
+![alt text](image-68.png)
+![alt text](image-69.png)
+![alt text](image-70.png)
+![alt text](image-71.png)
+![alt text](image-72.png)
+![alt text](image-73.png)
+![alt text](image-74.png)
+
+## 2.4 DNS——互联网的目录服务
+
+Just as humans can be identified in many ways, so too can Internet hosts. One identifier for a host is its hostname. Hostnames—such as www.facebook.com, www.google.com , gaia.cs.umass.edu —are mnemonic and are therefore appreciated by humans. However, hostnames provide little, if any, information about the location within the Internet of the host. (A hostname such as www.eurecom.fr , which ends with the country code .fr , tells us that the host is probably in France, but doesn’t say much more.) Furthermore, because hostnames can consist of variable-length alphanumeric characters, they would be difficult to process by routers. For these reasons, hosts are also identified by so-called IP addresses.
+### 2.4.1 DNS提供的服务
+有两种方法可以识别主机：主机名和 IP 地址。
+人们更喜欢更容易记忆的主机名标识符，而路由器更喜欢固定长度、分层的
+结构化 IP 地址。为了协调这些偏好，我们需要一个目录服务
+将主机名转换为 IP 地址
+DNS 通常由其他应用层协议（包括 HTTP 和 SMTP）使用来
+将用户提供的主机名转换为 IP 地址。举个例子，考虑一下当
+运行在某个用户主机上的浏览器（即 HTTP 客户端）请求 URL
+www.someschool.edu/index.html。为了让用户的主机能够发送HTTP请求
+向Web服务器www.someschool.edu发送消息，用户主机必须首先获取
+www.someschool.edu。这是按如下方式完成的。
+1. 同一用户计算机运行 DNS 应用程序的客户端。
+2. 浏览器从 URL 中提取主机名 www.someschool.edu 并传递
+DNS 应用程序客户端的主机名。
+3. DNS 客户端向 DNS 服务器发送包含主机名的查询。
+4. DNS 客户端最终收到回复，其中包括主机名的 IP 地址。
+5. 浏览器从 DNS 接收到 IP 地址后，就可以向 DNS 发起 TCP 连接。
+HTTP 服务器进程位于该 IP 地址的端口 80。
+![alt text](image-75.png)
+![alt text](image-76.png)
+
+
+
+## in class activity
+在命令行中执行` curl http://192.168.1.1:9999` 是用来发送一个 HTTP GET 请求 到 IP 地址 192.168.1.1 的端口 9999。
+如果目标设备在端口 9999 上运行了一个 HTTP 服务，curl 将返回该服务响应的内容，并在命令行中显示出来。
+如果目标设备没有在该端口提供 HTTP 服务，则会返回错误，如“Connection refused”（连接被拒绝）或者“Timeout”（超时），表示无法建立连接。
+示例用法：
+可以用它来检查设备或服务器是否在特定端口上提供了服务。
+常用于调试网络服务，特别是测试自定义端口上的 HTTP 服务。
+
+- *Ping: Ping is a tool that checks if a device is reachable on a network and measures how long it takes to respond.
+- *`python3 -m http.server 9999`: hosting a built-in python3 module named http.server at port 9999.
+- 
+- *curl: Curl is a command-line tool for transferring data using various protocols, primarily used to download or send files and data over networks. 
+- *  `curl http://192.168.1.1:9999` :sends an HTTP GET request to host 192.168.1.1 at port 9999
+
+### DHCP Server
+DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）是网络中常用的协议，用于自动为设备分配IP地址和其他网络配置参数，使设备可以快速加入网络，无需手动配置。
+
+DHCP服务器（DHCP Server）：
+DHCP Server 是提供该功能的服务器，它的主要任务是管理IP地址池并为网络中的设备动态分配地址。它可以为客户端设备（如计算机、手机、路由器等）自动配置以下信息：
+
+IP地址
+子网掩码
+网关地址
+DNS服务器地址
+DHCP工作流程：
+发现（Discover）：客户端设备（如你的电脑或手机）首次连接网络时，会向网络广播一个DHCP发现消息，请求IP地址。
+提供（Offer）：DHCP服务器收到请求后，会从IP地址池中选择一个可用的IP地址，并将此地址和其他配置信息打包在一个DHCP提供消息中发送给客户端。
+请求（Request）：客户端接收到提供的IP地址后，会向DHCP服务器发送一个请求消息，表示愿意使用这个IP地址。
+确认（Acknowledge）：DHCP服务器收到请求后，会发送一个确认消息，正式分配该IP地址给客户端，设备可以使用这个地址加入网络。
+DHCP的优点：
+自动化：设备可以自动获得网络配置信息，用户无需手动设置。
+动态管理：IP地址可以在设备断开连接后重新分配给其他设备，避免IP地址浪费。
+简化网络管理：管理员可以集中管理网络中所有设备的IP分配，尤其是对于大规模网络而言，手动配置每个设备会非常耗时。
+DHCP服务器的应用场景：
+家庭网络：家中的路由器通常充当DHCP服务器，为连接到家庭网络的设备（如手机、笔记本等）分配IP地址。
+企业网络：企业网络中的专用DHCP服务器为内部的所有设备管理和分配IP地址。
+公共网络：例如咖啡厅的Wi-Fi网络，设备连接时，DHCP服务器会为每个设备分配一个IP地址。
+DHCP Server的配置：
+通常在网络设备或操作系统（如Linux或Windows Server）上可以配置DHCP服务器，配置过程中需要指定IP地址池、租赁时间以及其他网络参数。
+
+DHCP vs. Static IP：
+相比于手动配置静态IP地址，DHCP更加灵活且自动化，适合大量设备动态加入网络的环境；而静态IP配置更适合需要长期保持固定地址的设备（如服务器、网络打印机等）。
