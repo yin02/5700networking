@@ -154,7 +154,7 @@ front of a tollbooth. We’ll examine this queuing delay in more detail in Secti
 在电路交换网络中，沿路径（缓冲区、链路传输速率）所需的资源
 提供终端系统之间的通信，并在通信期间保留端系统之间的会话。在分组交换网络中，这些资源没有被保留； session 的消息按需使用资源，因此可能需要等待（即队列）用于访问通信链路。
 
-![alt text](image-1.png)
+![alt text](1/image-1.png)
 
 图 1.13 展示了一个电路交换网络。在该网络中，四个电路交换机通过四个链路互连。每个链路都有四个电路，因此每个链路可以支持四个
 同时连接。主机（例如 PC 和工作站）均直接连接
@@ -182,7 +182,7 @@ multiplexing (TDM).
 
 ### 时分多路复用 (TDM)
 **时分多路复用（TDM）**涉及将时间分成固定长度的帧，并将每个帧分成固定数量的时间槽。当跨链路建立连接时，网络在每个帧中为这个连接分配一个时间槽。这个专用槽在每个帧中持续使用，以传输连接的数据，确保持续访问介质，不受其他用户的干扰。
-![alt text](image-2.png)
+![alt text](1/image-2.png)
 
 对于 TDM，电路的传输速率等于帧速率乘以时隙中的位数。例如，如果链路每传输 8,000 个帧
 第二个，每个时隙由8位组成，则每个电路的传输速率为64kbps。
@@ -233,7 +233,7 @@ switching, the probability that a specific user is active is 0.1 (that is, 10 pe
 1秒内。
 
 ## quesition in class
-![alt text](image.png)
+![alt text](1/image.png)
 ```
 T =  640000
 R = 10**6 bits/sec(1Mbs)
@@ -256,13 +256,13 @@ establish the circut
 
 12.8+0.5 = 13.3
 ```
-![alt text](image-18.png)
-![alt text](image-19.png)
+![alt text](1/image-18.png)
+![alt text](1/image-19.png)
 
-![alt text](image-20.png)
-![alt text](image-21.png)
+![alt text](1/image-20.png)
+![alt text](1/image-21.png)
 
-![alt text](image-22.png)
+![alt text](1/image-22.png)
 
 ## Regional ISPs and ISP Points of Presence (PoP)区域ISP和ISP存在点(PoP)
 
@@ -299,7 +299,7 @@ In summary, regional ISPs and their network of PoPs are essential for delivering
 总之，当今的互联网（网络的网络）非常复杂，由十几个一级网络组成ISP 和数十万低层 ISP。 ISP 的覆盖范围各不相同，其中一些
 跨越多个大陆和海洋，还有一些仅限于狭窄的地理区域。较低的-一级 ISP 与上一级 ISP 连接，而上一级 ISP 之间又相互互连。用内容提供商是下层 ISP 的客户，下层 ISP 是上层 ISP 的客户ISP。近年来，各大内容提供商也创建了自己的网络并连接如果可能的话，直接进入较低层的 ISP。
 
-![alt text](image-10.png)
+![alt text](1/image-10.png)
 
 
 
@@ -369,21 +369,21 @@ Understanding these concepts is crucial for designing efficient networks and cho
 - **丢包和吞吐量**：高丢包率会减少吞吐量，因为必要的重传会占用额外的带宽和处理资源。
 
 理解这些概念对于设计高效网络以及选择正确的技术和策略以缓解网络性能问题至关重要。
-![alt text](image-23.png)
+![alt text](1/image-23.png)
 
-![alt text](image-4.png)
+![alt text](1/image-4.png)
 
-![alt text](image-3.png)
-![alt text](image-5.png)
+![alt text](1/image-3.png)
+![alt text](1/image-5.png)
 
-![alt text](image-24.png)
-![alt text](image-25.png)
-![alt text](image-26.png)
+![alt text](1/image-24.png)
+![alt text](1/image-25.png)
+![alt text](1/image-26.png)
 
 # 节点延迟的组成部分
-![alt text](image-27.png)
-![alt text](image-28.png)
-![alt text](image-29.png)
+![alt text](1/image-27.png)
+![alt text](1/image-28.png)
+![alt text](1/image-29.png)
 在网络中，数据包从一个节点传输到下一个节点的过程中，会遇到多种不同类型的延迟。这些延迟累积起来，形成了 **总节点延迟**。下面详细解释各个延迟的类型：
 
 ## 1. 节点处理延迟 (node Processing Delay)
@@ -417,7 +417,7 @@ T_{\text{propagation}} = \frac{\text{链路长度}}{\text{信号传播速度}}
 \[
 \text{Total Nodal Delay} = T_{\text{processing}} + T_{\text{queuing}} + T_{\text{transmission}} + T_{\text{propagation}}
 \]
-![alt text](image-6.png)
+![alt text](1/image-6.png)
 
 在计算机网络领域，新手有时会难以理解**传输延迟**和**传播延迟**之间的区别。虽然二者的区别很微妙，但却非常重要。
 
@@ -438,7 +438,7 @@ T_{\text{propagation}} = \frac{\text{链路长度}}{\text{信号传播速度}}
   \]
 
 总结来说，**传输延迟**关注的是将整个数据包放入链路中所需的时间，而**传播延迟**则是比特在物理介质中传播所花费的时间。
-![alt text](image-7.png)
+![alt text](1/image-7.png)
 
 ## 1.4.2 排队延迟与数据包丢失 (Queuing Delay and Packet Loss)
 
@@ -475,9 +475,9 @@ variance of queuing delay, and the probability that the queuing delay exceeds so
 - **数据包丢失** 则会在缓冲区满时发生，导致丢失的数据需要重新发送，从而加重网络负载，增加传输时间，影响网络性能。
 
 因此，排队延迟和数据包丢失在网络传输中都是影响性能的重要因素，需要在网络设计中予以考虑和优化。
-![alt text](image-8.png)
+![alt text](1/image-8.png)
 
-![
+![.1/image-9.png1/image-9.png.1/.1/image-9.pngasset/image-9.png.1/image-9.png1/asset/image-9.png
 ](image-9.png)
 
 
@@ -508,7 +508,7 @@ If \( La/R > 1 \), then the average rate at which bits arrive at the queue excee
 当到达率小于传输能力时，队列长度就会收缩。
 然而，随着交通强度接近1，平均队列长度变得越来越大。这
 平均排队延迟对业务强度的定性依赖性如图 1.18 所示
-![alt text](image-11.png)
+![alt text](1/image-11.png)
 
 ### 丢包
 在上面的讨论中，我们假设队列能够容纳无限数量的
@@ -536,7 +536,7 @@ dtrans=L/R，其中，L 是数据包大小。请注意，方程 1.2 是对
 Traceroute 实际上重复了刚才描述的实验 3 次，因此源实际上发送了 3 个 •
 N 个数据包到达目的地。 RFC 1393 详细描述了 Traceroute
 
-![alt text](image-12.png)
+![alt text](1/image-12.png)
 
 输出有六列（第一个是 1 ，第二个是 cs-gw ，第三个是（128.119.240.254） ）：第一列是上面描述的n值，即沿途路由器的编号；第二列是名称
 路由器;第三列是路由器的地址（格式为 xxx.xxx.xxx.xxx）；最后三列
@@ -571,11 +571,11 @@ P2P文件共享系统。任何时刻的瞬时吞吐量是速率（以位/秒为�
 
 如果文件由 F 位组成，并且主机 B 传输需要 T 秒才能接收所有 F 位，则文件传输的平均吞吐量为 F/T 位/秒。对于某些应用，例如互联网电话，希望具有低延迟和始终高于某些值的瞬时吞吐量。
 
-![alt text](image-13.png)
+![alt text](1/image-13.png)
 图 1.19(b) 现在显示了服务器和客户端之间有 N 个链路的网络，其中 R1、R2、…、RN。
 N 个链路的传输速率 应用与双链路网络相同的分析，我们发现从服务器到客户端的文件传输的吞吐量为 min{R1,R2,…, ,}NR，其中
 
-![alt text](image-15.png)common link divides its transmission rate equally among the 10 downloads. Then the bottleneck foreach download is no longer in the access network, but is now instead the shared link in the core, whichonly provides each download with 500 kbps of throughput. Thus the end-to-end throughput for each download is now reduced to 500 kbps.
+![alt text](1/image-15.png)common link divides its transmission rate equally among the 10 downloads. Then the bottleneck foreach download is no longer in the access network, but is now instead the shared link in the core, whichonly provides each download with 500 kbps of throughput. Thus the end-to-end throughput for each download is now reduced to 500 kbps.
 
 ## 1.5 协议层及其服务模型
 
@@ -586,7 +586,7 @@ N 个链路的传输速率 应用与双链路网络相同的分析，我们发�
 分层。
 
 ### Protocol Layering协议分层
-![alt text](image-16.png)
+![alt text](1/image-16.png)
 
 ### Application Layer 应用层
 应用层是网络应用程序及其应用层协议所在的地方。这
@@ -635,7 +635,7 @@ OSI参考模型的七层如图1.23(b)所示，分别是：应用层、表示层�
 
 ## 1.5.2 封装
 
-![alt text](image-17.png)
+![alt text](1/image-17.png)
 正如我们在本书后面讨论的那样，
 路由器和链路层交换机都是分组交换机。类似于终端系统、路由器和链路层
 交换机将其网络硬件和软件分层组织。但是路由器和链路层
@@ -647,28 +647,28 @@ OSI参考模型的七层如图1.23(b)所示，分别是：应用层、表示层�
 谁在另一个分支机构。备忘录类似于应用层消息。 Alice 将主题放入一个办公室间信封中，信封正面写有 Bob 的姓名和部门。办公室间信封类似于传输层段，它包含标头信息（Bob 的姓名和部门编号），并封装应用层消息（备忘录）。
 当发送分支办公室的邮件收发室收到局间信封时，会将其放入局间信封中信封里面还有另一个信封，适合通过公共邮政服务发送。发送邮件室还将发送和接收分支机构的邮政地址写在邮件上。邮政信封。在这里，邮政信封类似于数据报——它封装了传输层段（局间信封），而传输层段又封装了原始消息（备忘录）。邮政服务将邮政信封递送至接收分支机构的收发室。在那里，过程开始解封装。收发室提取办公室间备忘录并将其转发给鲍勃。最后，鲍勃打开信封并取出备忘录。封装过程可能比上述过程更复杂。例如，一个大消息可以分为多个传输层段（每个段本身可能是分为多个网络层数据报）。在接收端，这样的段必须是
 从其组成数据报重建
-![alt text](image-30.png)
-![alt text](image-31.png)
-![alt text](image-32.png)
-![alt text](image-33.png)
-![alt text](image-34.png)
-![alt text](image-35.png)
-![alt text](image-36.png)
-![alt text](image-37.png)
-![alt text](image-38.png)
-![alt text](image-39.png)
-![alt text](image-40.png)
-![alt text](image-41.png)
-![alt text](image-42.png)
-![alt text](image-43.png)
-![alt text](image-44.png)
-![alt text](image-45.png)
-![alt text](image-46.png)
-![alt text](image-47.png)
-![alt text](image-48.png)
+![alt text](1/image-30.png)
+![alt text](1/image-31.png)
+![alt text](1/image-32.png)
+![alt text](1/image-33.png)
+![alt text](1/image-34.png)
+![alt text](1/image-35.png)
+![alt text](1/image-36.png)
+![alt text](1/image-37.png)
+![alt text](1/image-38.png)
+![alt text](1/image-39.png)
+![alt text](1/image-40.png)
+![alt text](1/image-41.png)
+![alt text](1/image-42.png)
+![alt text](1/image-43.png)
+![alt text](1/image-44.png)
+![alt text](1/image-45.png)
+![alt text](1/image-46.png)
+![alt text](1/image-47.png)
+![alt text](1/image-48.png)
 
 ## 课外补充
-![alt text](image-14.png)
+![alt text](1/image-14.png)
 当把各个层的协议放在一起时，就称为协议栈。互联网
 协议栈由五层组成：物理层、链路层、网络层、传输层和应用层，
 
@@ -701,9 +701,9 @@ SSL is not a third Internet transport protocol, on the same level as TCP and UDP
 
 ### RTT
 表示一个数据包从发送端发出，经过网络到达接收端，接收端处理后发送响应，再经过网络返回到发送端的**整个来回时间过程**。
-![alt text](image-49.png)
+![alt text](1/image-49.png)
 
-![alt text](image-50.png)
+![alt text](1/image-50.png)
 The first line of an HTTP request message is called the request line; the subsequent lines are called
 the header lines. The request line has three fields: **1.the method field, 2.the URL field, and 3. the HTTP version field.**
  The method field can take on several different values, including **GET, POST, HEAD,
@@ -712,12 +712,12 @@ PUT, and DELETE** . The great majority of HTTP request messages use the GET meth
 
 The `header line Host`: `www.someschool.edu` specifies the host on which the object resides. You might think that this header line is unnecessary,as there is already a TCP connection in place to the host. But, as we’ll see in Section 2.2.5, the information provided by the host header line is required by Web `proxy caches`. By including the Connection:close header line, the browser is telling the server that it doesn’t want to bother with persistent connections; it wants the server to close the connection after sending the requested object. The `Useragent`: header line specifies the user agent, that is, the browser type that is making the request to the
 server. Here the user agent is `Mozilla/5.0`, a Firefox browser. This header line is useful because the server can actually send different versions of the same object to different types of `user agents`. (Each ofthe versions is addressed by the same URL.) Finally, the Accept-language: header indicates thatthe user prefers to receive a French version of the object, if such an object exists on the server;otherwise, the server should send its default version. The Accept-language: header is just one of many content negotiation headers available in HTTP.
-![alt text](image-51.png)
+![alt text](1/image-51.png)
 Request line（请求行）：包含HTTP方法、URL和HTTP版本，它们之间用空格（sp）分隔，最后用crlf表示该行结束。
 Header lines（头部行）：由多个头部字段组成，每个字段由字段名、空格（sp）和字段值组成，同样以crlf表示每一行的结束。
 Blank line（空行）：crlf表示一个空行，用来分隔HTTP头部和实体内容。
 Entity body（实体内容）：这是HTTP请求中的实际数据，可以是空的或包含要传输的数据。
-![alt text](image-52.png)
+![alt text](1/image-52.png)
  It has three sections: `an initial status line`, `six
 header lines`, and then the `entity body`
 
@@ -732,10 +732,10 @@ by the server
 cookie technology has four components: (1) a cookie header line in the HTTP
 response message; (2) a cookie header line in the HTTP request message; (3) a cookie file kept on the
 user’s end system and managed by the user’s browser; and (4) a back-end database at the Web site.
-![alt text](image-53.png)
+![alt text](1/image-53.png)
 
 ### web caching
-![alt text](image-54.png)
+![alt text](1/image-54.png)
 1. 浏览器与Web缓存建立TCP连接，并向Web缓存发送HTTP请求
 将对象添加到 Web 缓存中。
 2. Web 缓存检查是否有本地存储的对象副本。如果是的话，网络
@@ -752,8 +752,8 @@ Typically a Web cache is purchased and installed by an ISP.
 
 
 Suppose that the HTTP request messages are negligibly small and thus create no traffic in the networks or in the access link (from institutional router to Internet router). Also suppose that the amount of time it takes from when the router on the Internet side of the access link in Figure 2.12 forwards an HTTP request (within an IP datagram) until it receives the response (typically within many IP datagrams) is two seconds on average. Informally, we refer to this last delay as the “Internet delay.”
-![alt text](image-55.png)
-![alt text](image-56.png)
+![alt text](1/image-55.png)
+![alt text](1/image-56.png)
 总结：通过升级接入链路到100 Mbps可以减少流量强度并降低延迟，但成本较高。使用Web缓存可减少访问链路的流量强度，使40%的请求在局域网内迅速满足，其余60%的请求则需要通过互联网，整体响应时间约为1.2秒。相比之下，Web缓存方案更经济且响应速度更快
 One possible solution is to increase the access rate from 15 Mbps to, say, 100 Mbps. This will lower the
 traffic intensity on the access link to 0.15, which translates to negligible delays between the two routers.
@@ -800,21 +800,21 @@ Mbps 链路。与两秒的互联网延迟相比，这个延迟可以忽略不计
 
 总结：通过升级接入链路到100 Mbps可以减少流量强度并降低延迟，但成本较高。使用Web缓存可减少访问链路的流量强度，使40%的请求在局域网内迅速满足，其余60%的请求则需要通过互联网，整体响应时间约为1.2秒。相比之下，Web缓存方案更经济且响应速度更快
 
-![alt text](image-57.png)
+![alt text](1/image-57.png)
 升级其与互联网的链接。当然，该机构必须购买并安装一个 Web
 缓存。但这种成本很低——许多缓存使用在廉价 PC 上运行的公共领域软件。
 通过使用内容分发网络 (CDN)，Web 缓存日益发挥着重要作用
 在互联网中发挥重要作用。某 CDN 公司安装了许多地理分布的缓存
 整个互联网，从而本地化大部分流量。有共享 CDN（例如 Akamai
 和 Limelight）和专用 CDN（例如 Google 和 Netflix）。我们将更详细地讨论 CDN
-![alt text](image-58.png)
+![alt text](1/image-58.png)
 
 缓存将对象转发到请求浏览器，但也在本地缓存该对象。重要的是，
 缓存还将最后修改日期与对象一起存储。第三次，一周后，另一次
 浏览器通过缓存请求同一个对象，并且该对象仍在缓存中。由于这个对象
 过去一周可能已在 Web 服务器上进行了修改，缓存通过以下方式执行最新检查
 发出有条件的 GET。具体来说，缓存发送
-![alt text](image-59.png)
+![alt text](1/image-59.png)
 我们看到，为了响应条件 GET，Web 服务器仍然发送响应消息，但是
 响应消息中不包含请求的对象。包括请求的对象将
 只会浪费带宽并增加用户感知的响应时间，特别是当对象很大时。笔记
@@ -827,7 +827,7 @@ Mbps 链路。与两秒的互联网延迟相比，这个延迟可以忽略不计
 HTTP 协议。
 
 ## 2.3 互联网中的电子邮件
-![alt text](image-60.png)
+![alt text](1/image-60.png)
 SMTP 是 Internet 电子邮件的主要应用层协议。它使用可靠的数据
 TCP 传输服务，用于将邮件从发件人的邮件服务器传输到收件人的邮件服务器。
 SMTP 有两个端： 客户端，在发送方的客户端上执行
@@ -836,8 +836,8 @@ SMTP 的各个方面都在每个邮件服务器上运行。当邮件服务器向
 SMTP 客户端。当邮件服务器从其他邮件服务器接收邮件时，它充当 SMTP 服务器。
 
 ## 2.3.1 邮件发送
-![alt text](image-61.png)
-![alt text](image-62.png)
+![alt text](1/image-61.png)
+![alt text](1/image-62.png)
 连接是香港和圣路易斯服务器之间的直接连接。特别是，如果鲍勃
 邮件服务器关闭，消息保留在 Alice 的邮件服务器中并等待新的尝试 -
 消息不会被放置在某些中间邮件服务器中。
@@ -854,7 +854,7 @@ TCP 与服务器 SMTP 上的端口 25 建立连接（在接收邮件服务器上
 消息。 SMTP 可以依靠 TCP 的可靠数据传输服务将消息发送到
 服务器没有错误。然后，如果客户端有其他连接，则在同一个 TCP 连接上重复此过程。
 发送到服务器的消息；否则，它指示 TCP 关闭连接。
-![alt text](image-63.png)
+![alt text](1/image-63.png)
 在上面的例子中，客户端发送一条消息（“你喜欢番茄酱吗？怎么样？
 泡菜？”）从邮件服务器到邮件服务器 hamburger.edu。作为对话的一部分，crepes.fr
 客户端发出五个命令：HELO（HELLO 的缩写）、MAIL FROM、RCPT TO、DATA、
@@ -867,17 +867,17 @@ CRLF.CRLF，其中 CR 和 LF 分别代表回车和换行。）服务器
 通过同一个 TCP 连接。对于每条消息，客户端都会以新的 MAIL 开始该过程
 FROM: ，用隔离句点指定消息结尾，并在所有消息发送后仅发出 QUITcrepes.fra 。
 强烈建议您使用 Telnet 与 SMTP 服务器直接对话。要做的事
-![alt text](image-64.png)
-![alt text](image-65.png)
-![alt text](image-66.png)
-![alt text](image-67.png)
-![alt text](image-68.png)
-![alt text](image-69.png)
-![alt text](image-70.png)
-![alt text](image-71.png)
-![alt text](image-72.png)
-![alt text](image-73.png)
-![alt text](image-74.png)
+![alt text](1/image-64.png)
+![alt text](1/image-65.png)
+![alt text](1/image-66.png)
+![alt text](1/image-67.png)
+![alt text](1/image-68.png)
+![alt text](1/image-69.png)
+![alt text](1/image-70.png)
+![alt text](1/image-71.png)
+![alt text](1/image-72.png)
+![alt text](1/image-73.png)
+![alt text](1/image-74.png)
 
 ## 2.4 DNS——互联网的目录服务
 
@@ -900,8 +900,8 @@ DNS 应用程序客户端的主机名。
 4. DNS 客户端最终收到回复，其中包括主机名的 IP 地址。
 5. 浏览器从 DNS 接收到 IP 地址后，就可以向 DNS 发起 TCP 连接。
 HTTP 服务器进程位于该 IP 地址的端口 80。
-![alt text](image-75.png)
-![alt text](image-76.png)
+![alt text](1/image-75.png)
+![alt text](1/image-76.png)
 
 
 
