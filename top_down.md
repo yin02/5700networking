@@ -922,6 +922,205 @@ HTTP 服务器进程位于该 IP 地址的端口 80。
 ### DHCP Server
 DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）是网络中常用的协议，用于自动为设备分配IP地址和其他网络配置参数，使设备可以快速加入网络，无需手动配置。
 
+
+
+
+
+
+
+
+# CS 5700 Hands-on Activities
+**Fall 24**  
+**Instructor:** Dr. Lama Hamandi  
+**TAs:** Mozhi Shen and Jason Zhang
+
+## Peer-to-Peer Network Activity Guide (Week 2)
+
+### Purpose:
+this hands-on experience will demonstrate fundamental networking concepts by establishing a direct peer-to-peer connection, configuring ip addresses, and exploring basic network protocols. it will illustrate the core principles of computer communication and data transfer.
+
+### Peer-to-Peer Network (25-35min)
+
+#### Setup (10-15 min)
+1. connect two laptops with an ethernet cable. you might need an adapter.
+2. go to `Settings > Network & internet > Ethernet`
+3. switch network profile type to **private network**
+4. click **IP assignment: Edit**
+
+5. switch **Edit IP settings** to **Manual**  
+   switch on **enable IPv4**  
+   one student set the ip address to `192.168.1.1`, another student set it to `192.168.1.2`  
+   set the subnet mask to `255.255.255.0`  
+   click **Save**
+
+#### Alternative:
+if you’re having trouble locating the GUI buttons, try using the CLI command instead. CLI commands tend to be more consistent across different OS versions and can be more accessible, especially when configuring cloud instances on platforms like AWS or Azure.  
+find windows powershell, right-click, and click **run as administrator** (you need elevated permission here to make the following changes).
+
+run the following command:  
+```
+New-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress 192.168.1.1 -PrefixLength 24
+```  
+check your network setting using the following command:  
+```
+Get-NetIPAddress -InterfaceAlias "Ethernet"
+```  
+both `New-NetIPAddress` and `Get-NetIPAddress` are called **cmdlets** (pronounced as commandlets), a lightweight version of commands used in powershell.
+
+### Step-by-Step Activity (10-15min)
+1. **Test Connection (5 minutes):**  
+   open windows powershell.  
+   ping the other laptop by running:  
+   ```
+   ping 192.168.1.2
+   ```  
+   discuss the results with your partner, and analyze what the output indicates.  
+   if the connection is not established, check your firewall settings or ask the TAs for assistance.
+
+2. **File Sharing by setting up a local temp server (10 mins):**  
+   one student runs the following command to start a server:  
+   ```
+   python3 -m http.server 9999
+   ```  
+   another student tries to visit this temp server by doing the following:  
+   run the following command:  
+   ```
+   curl http://192.168.1.1:9999
+   ```  
+   in your browser, visit: `http://192.168.1.1:9999` (visit, not search)  
+   discuss the results with your partner, and analyze what the output indicates.  
+   use `ctrl + c` (kill the process) to stop the server when you are finished.
+
+### Notes:
+- **ping:** ping is a tool that checks if a device is reachable on a network and measures how long it takes to respond.
+- **python3 -m http.server 9999:** hosting a built-in python3 module named http.server at port 9999.
+- **curl:** curl is a command-line tool for transferring data using various protocols, primarily used to download or send files and data over networks.
+- `curl http://192.168.1.1:9999`: sends an http get request to host `192.168.1.1` at port `9999`.
+
+### Cleanup (5min):
+you can:  
+undo what we have done in the setup (following the instructions in the above screenshots)  
+or try the following command in powershell:  
+```
+Set-NetIPInterface -InterfaceAlias "Ethernet" -Dhcp Enabled
+```  
+connect back to wifi and test your internet connection before going home.
+
+### Reflection (5-10 mins):
+- how does this differ from your home network?
+- what components are missing in our demo p2p network?
+- who acts as the server in the step-by-step activity?
+- what did you like in this activity?  
+- what do you think can be improved?  
+- why do we use `192.168.x.x` for this lab?
+
+
+cs 5700 hands-on activities  
+fall 24  
+instructor: dr. lama hamandi  
+tas: mozhi shen and jason zhang
+
+## peer-to-peer network activity guide (week 2)
+
+### purpose:
+this hands-on experience will demonstrate fundamental networking concepts by establishing a direct peer-to-peer connection, configuring ip addresses, and exploring basic network protocols. it will illustrate the core principles of computer communication and data transfer.
+
+### peer-to-peer network (25-35min)
+
+#### setup (10-15 min)
+connect two laptops with an ethernet cable. you might need an adapter.
+
+1. go to system settings > network, and select other services: the connected service with a weird name (the name of the ethernet cable adapter).
+2. do the following:
+   - select details
+   - select tcp/ip
+   - switch configure ip4 to “manually”
+   - input ip address `192.168.1.1` (first student) or `192.168.1.2` (second student)
+   - input subnet mask `255.255.255.0`
+   - click ok
+              
+**alternative (using cli commands):**
+if you're having trouble locating the gui buttons, use the cli commands below. cli commands tend to be more consistent across different os versions and can be more accessible, especially when configuring cloud instances on platforms like aws or azure.
+
+1. open terminal by pressing `cmd + space bar`. you can find terminal using launchpad search.
+2. run the following command:
+   ```bash
+   sudo ifconfig en0 inet 192.168.1.1 netmask 255.255.255.0
+   ```
+3. check your network setting using the following command:
+   ```bash
+   ifconfig en0
+   ```
+
+### step-by-step activity (10-15 min)
+
+#### 1. test connection (5 minutes):
+- open terminal.
+- ping the other laptop by running:
+  ```bash
+  ping 192.168.1.2
+  ```
+  (from the first laptop).
+- discuss the results with your partner, and analyze what the output indicates.
+- if the connection is not established, check your firewall settings or ask the tas for assistance.
+
+#### 2. file sharing by setting up a local temp server (10 mins):
+- one student runs the following command to start a server:
+  ```bash
+  python3 -m http.server 9999
+  ```
+- another student tries to visit this temp server by doing the following:
+  ```bash
+  curl http://192.168.1.1:9999
+  ```
+- in your browser, visit: `http://192.168.1.1:9999` (visit, don't search)
+- discuss the results with your partner, and analyze what the output indicates.
+- use `command + c` to stop the server when you are finished.
+
+**definitions:**
+- **ping**: ping is a tool that checks if a device is reachable on a network and measures how long it takes to respond.
+- **`python3 -m http.server 9999`**: this command runs a built-in python3 module named http.server at port 9999.
+- **curl**: curl is a command-line tool for transferring data using various protocols, primarily used to download or send files and data over networks.
+- **`curl http://192.168.1.1:9999`**: sends an http get request to host `192.168.1.1` at port 9999.
+
+### cleanup (5 min):
+you can either:
+- undo the setup manually
+- or try the following command in terminal:
+  1. remove the manually set ip address:
+     ```bash
+     sudo ifconfig en0 -alias 192.168.1.1
+     ```
+  2. release the dhcp lease:
+     ```bash
+     sudo ipconfig set en0 dhcp
+     ```
+  3. connect back to wifi and test your internet connection before going home.
+
+### reflection (5-10 mins):
+- how does this differ from your home network?
+- what components are missing in our demo p2p network?
+- who acts as the server in the step-by-step activity?
+- what did you like in this activity?     
+- what do you think can be improved?
+- why do we use `192.168.x.x` for this lab?
+
+### reference:
+- what is peer-to-peer? meaning, features, pros, and cons  
+  [spiceworks article](https://www.spiceworks.com/tech/networking/articles/what-is-peer-to-peer/)
+- ifconfig command (ibm documentation)  
+  [ibm documentation](https://www.ibm.com/docs/en/aix/7.2?topic=i-ifconfig-command)
+- ipconfig (microsoft documentation)  
+  [microsoft documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ipconfig)
+- ping command (microsoft documentation)  
+  [microsoft documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ping)
+- what is curl and how does it relate to apis? (ibm documentation)  
+  [ibm documentation](https://developer.ibm.com/articles/what-is-curl-command/)
+
+
+
+
+
 DHCP服务器（DHCP Server）：
 DHCP Server 是提供该功能的服务器，它的主要任务是管理IP地址池并为网络中的设备动态分配地址。它可以为客户端设备（如计算机、手机、路由器等）自动配置以下信息：
 
@@ -947,3 +1146,8 @@ DHCP Server的配置：
 
 DHCP vs. Static IP：
 相比于手动配置静态IP地址，DHCP更加灵活且自动化，适合大量设备动态加入网络的环境；而静态IP配置更适合需要长期保持固定地址的设备（如服务器、网络打印机等）。
+
+
+
+
+
