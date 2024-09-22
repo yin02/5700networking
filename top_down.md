@@ -233,7 +233,7 @@ switching, the probability that a specific user is active is 0.1 (that is, 10 pe
 1秒内。
 
 ## quesition in class
-![alt text](assets/image.png)
+![alt text](assets/image-77.png)
 ```
 T =  640000
 R = 10**6 bits/sec(1Mbs)
@@ -900,6 +900,7 @@ DNS 应用程序客户端的主机名。
 4. DNS 客户端最终收到回复，其中包括主机名的 IP 地址。
 5. 浏览器从 DNS 接收到 IP 地址后，就可以向 DNS 发起 TCP 连接。
 HTTP 服务器进程位于该 IP 地址的端口 80。
+### DNS 还提供其他一些重要服务：
 ![alt text](assets/image-75.png)
 ![alt text](assets/image-76.png)
 
@@ -1148,6 +1149,96 @@ DHCP vs. Static IP：
 相比于手动配置静态IP地址，DHCP更加灵活且自动化，适合大量设备动态加入网络的环境；而静态IP配置更适合需要长期保持固定地址的设备（如服务器、网络打印机等）。
 
 
+<<<<<<< HEAD
 
 
+=======
+### 2.4.2 DNS 工作原理概述
+
+应用程序将调用 DNS 客户端，指定
+需要翻译的主机名。 （在许多基于 UNIX 的计算机上，gethostbyname() 是应用程序为了执行转换而调用的函数调用。）然后用户主机中的 DNS
+接管，向网络发送查询消息。所有 DNS 查询和回复消息均已发送
+在 UDP 数据报内发送到端口 53。经过一段从毫秒到秒的延迟后，用户的 DNS
+主机收到提供所需映射的 DNS 回复消息。然后这个映射被传递到
+调用应用程序。因此，从用户主机中调用应用程序的角度来看，DNS
+提供简单直接翻译服务的黑匣子。但事实上，黑匣子
+实现的服务比较复杂，由分布在各地的大量DNS服务器组成
+以及一个应用层协议，指定 DNS 服务器和查询主机如何
+交流。
+#### dns 不好的设计
+
+
+DNS 的一种简单设计应该有一个包含所有映射的 DNS 服务器。在这个集中化的
+设计时，客户端只需将所有查询定向到单个 DNS 服务器，然后 DNS 服务器直接响应
+给查询的客户。虽然这种设计的简洁性很吸引人，但它不适合今天的
+互联网，拥有大量（且不断增长）的主机。集中式设计的问题包括：
+- **单点故障**。如果 DNS 服务器崩溃，整个互联网也会崩溃！
+- **交通量**。单个 DNS 服务器必须处理所有 DNS 查询（针对数亿台主机生成的所有 HTTP 请求和电子邮件消息）。
+- **远程集中数据库**。单个 DNS 服务器无法“接近”所有查询客户端。如果我们将单个 DNS 服务器放在纽约市，那么来自澳大利亚的所有查询都必须传输到
+地球的另一边，也许是通过缓慢而拥挤的链路。这可能会导致严重的延误。
+- **维护**。单个 DNS 服务器必须保留所有 Internet 主机的记录。这个集中式数据库不仅庞大，而且必须经常更新以适应
+每一位新主人
+
+#### 分布式分层数据库
+这样就不用映射所有的了
+To a first approximation, there are three classes of DNS servers—root DNS servers, top-level domain (TLD) DNS servers, and authoritative DNS servers—organized in a hierarchy as shown in 根 DNS 服务器、顶级域 (TLD) DNS和权威DNS服务器
+
+![alt text](assets/image-77.png)
+The client first contacts one of the root servers,
+which returns IP addresses for TLD servers for the top-level domain com . The client then contacts one
+of these TLD servers, which returns the IP address of an authoritative server for amazon.com . Finally,the client contacts one of the authoritative servers for amazon.com , which returns the IP address for the hostname www.amazon.com
+
+**Root DNS servers**. There are over 400 root name servers scattered all over the world. Figure 2.18
+shows the countries that have root names servers, with countries having more than ten darkly
+shaded. These root name servers are managed by 13 different organizations. The full list of root
+name servers, along with the organizations that manage them and their IP addresses can be found
+at [Root Servers 2016]. Root name servers provide the IP addresses of the TLD servers.
+**Top-level domain (TLD) servers**. For each of the top-level domains — top-level domains such as
+com, org, net, edu, and gov, and all of the country top-level domains such as uk, fr, ca, and jp —
+there is TLD server (or server cluster). The company Verisign Global Registry Services maintains
+the TLD servers for the com top-level domain, and the company Educause maintains the TLD
+servers for the edu top-level domain. The network infrastructure supporting a TLD can be large and
+complex; see [Osterweil 2012] for a nice overview of the Verisign network. See [TLD list 2016] for
+a list of all top-level domains. TLD servers provide the IP addresses for authoritative DNS servers.
+Figure 2.18 DNS root servers in 2016
+**Authoritative DNS servers**. Every organization with publicly accessible hosts (such as Web servers
+and mail servers) on the Internet must provide publicly accessible DNS records that map the names
+of those hosts to IP addresses. An organization’s authoritative DNS server houses these DNS
+records. An organization can choose to implement its own authoritative DNS server to hold these
+records; alternatively, the organization can pay to have these records stored in an authoritative DNS
+server of some service provider. Most universities and large companies implement and maintain
+their own primary and secondary (backup) authoritative DNS server.
+
+
+### example
+Suppose the host `cse.nyu.edu` desires the IP address of `gaia.cs.umass.edu` . Also suppose that NYU’s local DNS server for `cse.nyu.edu` is called `dns.nyu.edu `and that an authoritative DNS server for gaia.cs.umass.edu is called `dns.umass.edu` . As shown in Figure 2.19, the host `cse.nyu.edu`**first sends a DNS query message to its local DNS server**, `dns.nyu.edu` . The query message contains the hostname to be translated, namely, gaia.cs.umass.edu . **The local DNS server forwards the query message to a root DNS server**. The root DNS server **takes note of the edu suffix and returns** to the local DNS server **a list of IP addresses for TLD servers responsible for edu** . The local DNS server then **resends the query message to one of these TLD servers**. The **TLD server takes note of the umass.edu suffix and responds with the IP address of the authoritative DNS server** for the University of Massachusetts, namely, dns.umass.edu . Finally, **the local DNS server resends the query message directly to dns.umass.edu** , which responds with the IP address of gaia.cs.umass.edu . Note that in this example, in order to obtain the mapping for one hostname, eight DNS messages were sent: f**our querymessages and four reply messages!** We’ll soon see how DNS caching reduces this query traffic.Our previous example assumed that the TLD server knows the authoritative DNS server for the hostname. In general this not always true. Instead, the TLD server![alt text](assets/image-78.png)
+
+迭代递归查询 图 2.19 中所示的示例同时使用了 和 查询。这
+从 cse.nyu.edu 发送到 dns.nyu.edu 的查询是递归查询，因为查询询问
+dns.nyu.edu 代表其获取映射。但随后的三个查询是迭代的，因为
+所有回复都直接返回到 dns.nyu.edu。理论上，任何 DNS 查询都可以是迭代的或
+递归的。例如，图 2.20 显示了一个 DNS 查询链，其中所有查询都是递归的。
+实际上，查询通常遵循图 2.19 中的模式：从请求主机到本地 DNS 服务器的查询是递归的，其余查询是迭代的
+![alt text](assets/image-78.png)
+
+### DNS Caching
+
+DNS 缓存背后的想法非常简单。在查询链中，当
+DNS 服务器收到 DNS 回复（例如，包含从主机名到 IP 的映射）
+地址），它可以将映射缓存在其本地内存中。例如，在图2.19中，每次本地
+DNS 服务器 dns.nyu.edu 收到某个 DNS 服务器的回复，它可以缓存任何信息
+包含在回复中。如果主机名/IP 地址对缓存在 DNS 服务器和另一个查询中
+到达 DNS 服务器以获得相同的主机名，DNS 服务器可以提供所需的 IP 地址，
+即使它对于主机名不具有权威性。因为主机以及主机名和IP之间的映射
+地址绝不是永久的，DNS 服务器在一段时间后会丢弃缓存的信息
+（通常设置为两天）。
+例如，假设主机 apricot.nyu.edu 查询 dns.nyu.edu 的 IP 地址
+主机名。此外，假设几个小时后，另一位纽约大学主持人，例如 cnn.com
+kiwi.nyu.edu，也使用相同的主机名查询 dns.nyu.edu。由于缓存的原因，本地
+DNS 服务器将能够立即返回第二个 requestingcnn.com 的 IP 地址主机，而无需查询任何其他 DNS 服务器。本地 DNS 服务器也可以缓存 IP
+TLD 服务器的地址，从而允许本地 DNS 服务器绕过根 DNS 服务器
+查询链。事实上，由于缓存的原因，除了极小部分之外，所有的根服务器都被绕过了。
+DNS 查询。
+
+>>>>>>> f05ce9ec775b6dab1062516979de821a8b980fe9
 
