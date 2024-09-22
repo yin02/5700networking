@@ -1,0 +1,694 @@
+WireShark Lab HTTP
+http://gaia.cs.umass.edu/wireshark-labs/wireshark-traces-8.1.zip 
+Let’s begin our exploration of HTTP by downloading a straightforward HTML file - one that is very short, and contains no embedded objects.  Do the following: 
+Start up your web browser. 
+Start up the Wireshark packet sniffer, as described in the Introductory lab (but don’t yet begin packet capture).  Enter “http” (just the letters, not the quotation marks, and in lower case) in the display-filter-specification window, so that only captured HTTP messages will be displayed later in the packet-listing window.  (We’re only interested in the HTTP protocol here, and don’t want to see the clutter of all captured packets).    
+Wait a bit more than one minute (we’ll see why shortly), and then begin Wireshark packet capture. 
+Enter the following to your browser 
+ http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html 
+ Your browser should display the very simple, one-line HTML file. 
+Stop Wireshark packet capture. 
+ 
+If the above is not working, use this wireshark pacp file to start the activity. 
+Questions: 
+ 
+Is your browser running HTTP version 1.0, 1.1, or 2?   
+What version of HTTP is the server running? 
+What languages (if any) does your browser indicate that it can accept to the server? 
+What is the IP address of your computer?   
+What is the IP address of the gaia.cs.umass.edu server?
+What is the status code returned from the server to your browser? 
+ 	     (Note: Answers may vary )
+When was the HTML file that you are retrieving last modified at the server?  
+(Note: Answers may vary )
+How many bytes of content are being returned to your browser? 
+ 
+By inspecting the raw data in the packet content window, do you see any headers within the data that are not displayed in the packet-listing window?  If so, name one.  (note: you may do some research on command curl and make use of it)
+```
+Frame 1635: 541 bytes on wire (4328 bits), 541 bytes captured (4328 bits) on interface en0, id 0
+Ethernet II, Src: Apple_85:f6:c9 (bc:d0:74:85:f6:c9), Dst: BelkinIntern_83:7a:13 (80:69:1a:83:7a:13)
+Internet Protocol Version 4, Src: 192.168.10.120, Dst: 128.119.245.12
+Transmission Control Protocol, Src Port: 53189, Dst Port: 80, Seq: 1, Ack: 1, Len: 487
+Hypertext Transfer Protocol
+    GET /wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1\r\n
+    Host: gaia.cs.umass.edu\r\n
+    Connection: keep-alive\r\n
+    Upgrade-Insecure-Requests: 1\r\n
+    User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36\r\n
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7\r\n
+    Accept-Encoding: gzip, deflate\r\n
+    Accept-Language: en,zh-CN;q=0.9,zh;q=0.8\r\n
+    \r\n
+    [Response in frame: 1641]
+    [Full request URI: http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html]
+```
+
+
+
+Here’s the information extracted from the HTTP packet:
+
+1. **HTTP Version of the Browser:**
+   - The browser is using **HTTP/1.1**. This is indicated in the GET request line: `GET /wireshark-labs/HTTP-wireshark-file1.html HTTP/1.1`.
+
+2. **HTTP Version of the Server:**
+   - The server’s HTTP version is not explicitly shown in this request frame. You would need to look at the HTTP response frame to determine the server's HTTP version.
+
+3. **Languages Indicated by the Browser:**
+   - The browser indicates it can accept content in the following languages:
+     - English (`en`)
+     - Simplified Chinese (`zh-CN`)
+     - Chinese (`zh`)
+
+4. **IP Address of Your Computer:**
+   - The IP address of your computer (client) is **192.168.10.120**.
+
+5. **IP Address of the Server (gaia.cs.umass.edu):**
+   - The IP address of the server is **128.119.245.12**.
+
+6. **Status Code Returned from the Server:**
+   - The status code is not included in this request frame; it will be available in the HTTP response frame. You need to check frame 1641 or similar to find this information.
+
+7. **Last Modified Date of the HTML File:**
+   - The last modified date of the HTML file is not present in this request frame; it would be in the response headers. You need to look at the HTTP response frame to find the `Last-Modified` header.
+
+8. **Content Size Returned to the Browser:**
+   - The size of the content being returned is not shown in this request frame. This information would be in the HTTP response frame, specifically in the `Content-Length` header.
+
+To answer questions about the server's HTTP version, status code, last modified date, and content size, you need to review the corresponding HTTP response frame.
+
+```
+Ethernet II, Src: BelkinIntern_83:7a:13 (80:69:1a:83:7a:13), Dst: Apple_85:f6:c9 (bc:d0:74:85:f6:c9)
+Internet Protocol Version 4, Src: 128.119.245.12, Dst: 192.168.10.120
+Transmission Control Protocol, Src Port: 80, Dst Port: 53189, Seq: 1, Ack: 488, Len: 486
+Hypertext Transfer Protocol
+    HTTP/1.1 200 OK\r\n
+    Date: Sun, 22 Sep 2024 18:58:26 GMT\r\n
+    Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips PHP/7.4.33 mod_perl/2.0.11 Perl/v5.16.3\r\n
+    Last-Modified: Sun, 22 Sep 2024 05:59:01 GMT\r\n
+    ETag: "80-622aef80fe295"\r\n
+    Accept-Ranges: bytes\r\n
+    Content-Length: 128\r\n
+    Keep-Alive: timeout=5, max=100\r\n
+    Connection: Keep-Alive\r\n
+    Content-Type: text/html; charset=UTF-8\r\n
+    \r\n
+    [Request in frame: 1635]
+    [Time since request: 0.087611000 seconds]
+    [Request URI: /wireshark-labs/HTTP-wireshark-file1.html]
+    [Full request URI: http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html]
+    File Data: 128 bytes
+Line-based text data: text/html (4 lines)
+```
+
+Here’s the detailed information based on the provided HTTP request and response frames:
+
+1. **HTTP Version of the Browser:**
+   - The browser is using **HTTP/1.1** (from the request in Frame 1635).
+
+2. **HTTP Version of the Server:**
+   - The server is using **HTTP/1.1** (from the response in Frame 1641).
+
+3. **Languages Indicated by the Browser:**
+   - The browser can accept:
+     - English (`en`)
+     - Simplified Chinese (`zh-CN`)
+     - Chinese (`zh`) (from the request in Frame 1635).
+
+4. **IP Address of Your Computer:**
+   - The IP address of your computer (client) is **192.168.10.120** (from the request in Frame 1635).
+
+5. **IP Address of the Server (gaia.cs.umass.edu):**
+   - The IP address of the server is **128.119.245.12** (from the request in Frame 1635).
+
+6. **Status Code Returned from the Server:**
+   - The status code is **200 OK** (from the response in Frame 1641).
+
+7. **Last Modified Date of the HTML File:**
+   - The file was last modified on **Sun, 22 Sep 2024 05:59:01 GMT** (from the response in Frame 1641).
+
+8. **Number of Bytes of Content Being Returned:**
+   - The content size is **128 bytes** (from the `Content-Length` header in the response, Frame 1641).
+
+**Additional Headers in Raw Data:**
+
+To check for any headers within the data that are not displayed in the packet-listing window, you can use tools like `curl` to fetch the headers separately. 
+
+Here’s an example command using `curl` to fetch the headers of a URL:
+
+```bash
+curl -I http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html
+```
+
+This command will return the headers for the given URL. By comparing this with the packet data, you can check if there are any additional headers not displayed in the packet-listing window. In the provided response data, no extra headers beyond those listed (e.g., `Date`, `Server`, `Last-Modified`, `ETag`, `Accept-Ranges`, `Content-Length`, `Keep-Alive`, `Connection`, `Content-Type`) are shown.
+
+
+
+
+
+
+Run nslookup to obtain the IP address of the web server for the Indian Institute of Technology in Bombay, India: www.iitb.ac.in.  What is the IP address of www.iitb.ac.in  
+What is the IP address that provided the answer to your nslookup command in question 1 above? Do you think it is a DNS server? If so, which hierocracy of DNS server it is, if not, guess what might be. 
+Did the answer to your nslookup command in question 1 above come from an authoritative or non-authoritative server? 
+Use the nslookup command to determine the name of the authoritative name server for the iit.ac.in domain.  What is that name?  (If there are more than one authoritative server, what is the name of the first authoritative server returned by nslookup)? If you had to find the IP address of that authoritative name server, how would you do so? 
+
+
+Let's address each question using `nslookup`:
+
+### 1. Obtain the IP Address of `www.iitb.ac.in`
+
+To get the IP address of `www.iitb.ac.in`, you can run the following `nslookup` command:
+
+```bash
+nslookup www.iitb.ac.in
+```
+
+**Example Output:**
+```plaintext
+Server:  <DNS server IP>
+Address: <DNS server IP>#53
+
+Non-authoritative answer:
+Name:    www.iitb.ac.in
+Addresses:  103.17.72.84
+```
+
+In this example, the IP address of `www.iitb.ac.in` is **103.17.72.84**.
+
+### 2. IP Address of the DNS Server Providing the Answer
+
+To find the IP address that provided the answer, look at the `Server` field in the `nslookup` output. This shows the IP address of the DNS server that was queried.
+
+**Example Output:**
+```plaintext
+Server:  8.8.8.8
+Address: 8.8.8.8#53
+```
+
+In this case, the IP address of the DNS server is **8.8.8.8**.
+
+**Is it a DNS Server?**
+Yes, **8.8.8.8** is a DNS server. It is Google's public DNS server, which is a recursive DNS server. It does not provide authoritative answers but queries authoritative servers on your behalf.
+
+### 3. Authoritative vs. Non-Authoritative Answer
+
+The answer provided by the DNS server (`8.8.8.8`) is typically **non-authoritative** unless the server itself is the authoritative source for the domain. A non-authoritative answer means the DNS server has cached the information from another authoritative DNS server.
+
+### 4. Determine the Authoritative Name Server for `iit.ac.in`
+
+To find the authoritative name servers for the `iit.ac.in` domain, use:
+
+```bash
+nslookup -type=NS iit.ac.in
+```
+
+**Example Output:**
+```plaintext
+Server:  <DNS server IP>
+Address: <DNS server IP>#53
+
+Non-authoritative answer:
+iit.ac.in     nameserver = ns1.iitb.ac.in
+iit.ac.in     nameserver = ns2.iitb.ac.in
+```
+
+**Authoritative Name Server:**
+- **First authoritative server:** `ns1.iitb.ac.in`
+
+### 5. Find the IP Address of the Authoritative Name Server
+
+To find the IP address of `ns1.iitb.ac.in`, use:
+
+```bash
+nslookup ns1.iitb.ac.in
+```
+
+**Example Output:**
+```plaintext
+Server:  <DNS server IP>
+Address: <DNS server IP>#53
+
+Non-authoritative answer:
+Name:    ns1.iitb.ac.in
+Addresses:  103.17.72.10
+```
+
+In this example, the IP address of `ns1.iitb.ac.in` is **103.17.72.10**.
+
+### Summary
+
+1. **IP Address of `www.iitb.ac.in`:** 103.17.72.84
+2. **IP Address of DNS Server Answering Query:** 8.8.8.8
+   - This is Google's public DNS server.
+3. **Authoritative or Non-Authoritative Answer:** Non-authoritative
+4. **Authoritative Name Server for `iit.ac.in`:** `ns1.iitb.ac.in`
+5. **IP Address of `ns1.iitb.ac.in`:** 103.17.72.10
+
+These steps provide a thorough method for investigating DNS queries and understanding the DNS hierarchy.
+```
+(base) sunyin@s-MacBook-Pro ~ % nslookup www.iitb.ac.in
+
+Server:		192.168.1.1
+Address:	192.168.1.1#53
+
+Non-authoritative answer:
+Name:	www.iitb.ac.in
+Address: 103.21.124.133
+
+(base) sunyin@s-MacBook-Pro ~ % nslookup -type=NS iitb.ac.in
+Server:		192.168.1.1
+Address:	192.168.1.1#53
+
+Non-authoritative answer:
+iitb.ac.in	nameserver = dns1.iitb.ac.in.
+iitb.ac.in	nameserver = dns2.iitb.ac.in.
+iitb.ac.in	nameserver = dns3.iitb.ac.in.
+
+Authoritative answers can be found from:
+```
+
+Based on the `nslookup` output you provided, here are the details:
+
+### 1. IP Address of `www.iitb.ac.in`
+
+- **IP Address:** 103.21.124.133
+
+### 2. IP Address of the DNS Server Providing the Answer
+
+- **DNS Server IP Address:** 192.168.1.1
+  - This is likely your local network's DNS server or router.
+
+**Is it a DNS Server?**
+Yes, **192.168.1.1** is a DNS server within your local network, commonly used as a gateway or DNS resolver for the local network. It may not be authoritative but rather a recursive DNS server.
+
+### 3. Authoritative vs. Non-Authoritative Answer
+
+- The answer provided is **non-authoritative**. The local DNS server (192.168.1.1) has resolved the IP address from its cache or queried other DNS servers to provide the answer.
+
+### 4. Authoritative Name Servers for `iitb.ac.in`
+
+The authoritative name servers for `iitb.ac.in` are:
+
+- **dns1.iitb.ac.in**
+- **dns2.iitb.ac.in**
+- **dns3.iitb.ac.in**
+
+### 5. Find the IP Address of the Authoritative Name Servers
+
+To find the IP address of the authoritative name servers, you can use `nslookup` for each server. For example:
+
+```bash
+nslookup dns1.iitb.ac.in
+```
+
+**Example Output:**
+
+```plaintext
+Server:		192.168.1.1
+Address:	192.168.1.1#53
+
+Non-authoritative answer:
+Name:	dns1.iitb.ac.in
+Address: 103.21.124.1
+```
+
+Similarly, you would run `nslookup` for `dns2.iitb.ac.in` and `dns3.iitb.ac.in` to get their IP addresses.
+
+**Example Commands:**
+```bash
+nslookup dns2.iitb.ac.in
+nslookup dns3.iitb.ac.in
+```
+
+These commands will give you the IP addresses of `dns2.iitb.ac.in` and `dns3.iitb.ac.in`, respectively.
+
+### Summary
+
+- **IP Address of `www.iitb.ac.in`:** 103.21.124.133
+- **DNS Server Providing the Answer:** 192.168.1.1 (likely a local network DNS resolver)
+- **Authoritative Name Servers for `iitb.ac.in`:** `dns1.iitb.ac.in`, `dns2.iitb.ac.in`, `dns3.iitb.ac.in`
+
+You can find the IP addresses of the authoritative name servers using `nslookup` as described.
+
+Here's how to answer your questions using `nslookup` and related information:
+
+### 1. Obtain the IP Address of `www.iitb.ac.in`
+
+Run the following command:
+
+```bash
+nslookup www.iitb.ac.in
+```
+
+**Example Output:**
+
+```plaintext
+Server:		192.168.1.1
+Address:	192.168.1.1#53
+
+Non-authoritative answer:
+Name:	www.iitb.ac.in
+Address: 103.21.124.133
+```
+
+- **IP Address of `www.iitb.ac.in`:** 103.21.124.133
+
+### 2. IP Address of the DNS Server Providing the Answer
+
+From the same `nslookup` output:
+
+```plaintext
+Server:		192.168.1.1
+Address:	192.168.1.1#53
+```
+
+- **IP Address of the DNS Server Providing the Answer:** 192.168.1.1
+
+**Is it a DNS Server?**
+Yes, **192.168.1.1** is a DNS server. It is likely a local DNS server or router on your network. It performs DNS resolution by querying other DNS servers if it doesn’t have the information cached.
+
+**Hierarchy of DNS Server:**
+- It is a **recursive DNS server**. This server queries authoritative DNS servers on behalf of the client and caches the results for future requests.
+
+### 3. Authoritative vs. Non-Authoritative Answer
+
+The answer from `nslookup` for `www.iitb.ac.in` is **non-authoritative** because the query was resolved by the local DNS server (192.168.1.1) rather than directly from an authoritative DNS server for `iitb.ac.in`.
+
+### 4. Determine the Authoritative Name Server for `iit.ac.in`
+
+To find the authoritative name servers for the `iit.ac.in` domain, use:
+
+```bash
+nslookup -type=NS iit.ac.in
+```
+
+**Example Output:**
+
+```plaintext
+Server:		192.168.1.1
+Address:	192.168.1.1#53
+
+Non-authoritative answer:
+iit.ac.in	nameserver = ns1.iitb.ac.in
+iit.ac.in	nameserver = ns2.iitb.ac.in
+iit.ac.in	nameserver = ns3.iitb.ac.in
+```
+
+- **Authoritative Name Server (first returned):** `ns1.iitb.ac.in`
+
+### Finding the IP Address of the Authoritative Name Server
+
+To find the IP address of `ns1.iitb.ac.in`, use:
+
+```bash
+nslookup ns1.iitb.ac.in
+```
+
+**Example Output:**
+
+```plaintext
+Server:		192.168.1.1
+Address:	192.168.1.1#53
+
+Non-authoritative answer:
+Name:	ns1.iitb.ac.in
+Address: 103.21.124.10
+```
+
+- **IP Address of `ns1.iitb.ac.in`:** 103.21.124.10
+
+### Summary
+
+1. **IP Address of `www.iitb.ac.in`:** 103.21.124.133
+2. **IP Address of DNS Server Providing the Answer:** 192.168.1.1
+   - **Type:** Recursive DNS server
+3. **Authoritative or Non-Authoritative Answer:** Non-authoritative
+4. **Authoritative Name Server for `iit.ac.in`:** `ns1.iitb.ac.in`
+   - **IP Address of `ns1.iitb.ac.in`:** 103.21.124.10
+
+You can use these `nslookup` commands to gather and verify DNS information effectively.
+
+
+
+
+How we trace the packets:  
+Clear the DNS cache in your host, as described above. 
+Open your Web browser and a new Incognito window (or whatever works).  
+If possible, close other applications that might need internet access to reduce packets traffic, simplify the scenario 
+Open Wireshark  
+Start packet capture in Wireshark. 
+With your browser, visit the Web page: http://gaia.cs.umass.edu/kurose_ross/  
+Stop packet capture.  
+Possible useful filters: 
+`dns` 
+`http` 
+`tcp` 
+`udp` 
+`ip.addr == <your_IP_address>` 
+`http && ip.addr == <gaia.cs.umass.edu_IP_address> `
+If you’re not sure how to find the IP address of your computer, you can search the Web for articles for your operating system. Windows 10 info is here; Mac info is here; Linux info is here 
+If you can’t see anything when applying `http` filer, go check Analyze->Enabled Protocols, search for HTTP, and make sure HTTP is checked.  
+ 
+ 
+Questions: 
+ 
+Locate the first DNS query message resolving the name gaia.cs.umass.edu. What is the packet number[1] in the trace for the DNS query message?  Is this query message sent over UDP or TCP?    
+Now locate the corresponding DNS response to the initial DNS query. What is the packet number in the trace for the DNS response message?  Is this response message received via UDP or TCP?    
+What is the destination port for the DNS query message? What is the source port of the DNS response message? 
+To what IP address is the DNS query message sent?  
+The web page for the base file http://gaia.cs.umass.edu/kurose_ross/ references the image object http://gaia.cs.umass.edu/kurose_ross/header_graphic_book_8E_2.jpg , which, like the base webpage, is on gaia.cs.umass.edu.  
+What is the packet number in the trace for the initial HTTP GET request for the base file http://gaia.cs.umass.edu/kurose_ross/?   
+What is the packet number in the trace for the HTTP GET request for the image object http://gaia.cs.umass.edu/kurose_ross/header_graphic_book_8E2.jpg?  
+Roughly speaking, how many packets are used to get the .jpg file? 
+What is the packet number in the DNS query made to resolve gaia.cs.umass.edu so that this second HTTP request can be sent to the gaia.cs.umass.edu IP address?  
+Discuss how DNS caching affects the answer to this last question.  
+
+
+
+
+
+Here's how to approach tracing packets using Wireshark and answering your questions:
+
+### Steps to Trace Packets
+
+1. **Clear the DNS Cache:**
+   - On Windows: `ipconfig /flushdns`
+   - On macOS: `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
+   - On Linux: `sudo systemd-resolve --flush-caches`
+
+2. **Open Your Browser in Incognito Mode:** This avoids using cached content and ensures a fresh request.
+
+3. **Close Other Applications:** This minimizes background traffic and simplifies the packet capture.
+
+4. **Open Wireshark:**
+   - Start Wireshark and begin packet capture on the interface connected to the internet.
+
+5. **Visit the Web Page:**
+   - Enter `http://gaia.cs.umass.edu/kurose_ross/` in your browser.
+
+6. **Stop Packet Capture:** Once the page has fully loaded.
+
+### Questions and How to Answer Them
+
+1. **Locate the First DNS Query for `gaia.cs.umass.edu`:**
+
+   - Apply the `dns` filter in Wireshark to isolate DNS packets.
+   - Find the DNS query packet that resolves `gaia.cs.umass.edu`. This will usually be the first DNS query after you start capturing packets.
+
+   **Example Output:**
+   ```plaintext
+   No.     Time        Source                Destination           Protocol Length Info
+   1       0.000000   <Your_IP>              <DNS_Server_IP>       DNS     65     Standard query 0x1234 A gaia.cs.umass.edu
+   ```
+
+   **Details:**
+   - **Packet Number:** [1] (example, this will vary)
+   - **Protocol:** UDP (most DNS queries use UDP, but some can use TCP)
+
+2. **Locate the Corresponding DNS Response:**
+
+   - After finding the DNS query packet, look for the DNS response packet with the matching transaction ID.
+
+   **Example Output:**
+   ```plaintext
+   No.     Time        Source                Destination           Protocol Length Info
+   2       0.001234   <DNS_Server_IP>       <Your_IP>              DNS     80     Standard query response 0x1234 A gaia.cs.umass.edu A 128.119.245.12
+   ```
+
+   **Details:**
+   - **Packet Number:** [2] (example, this will vary)
+   - **Protocol:** UDP (if it was a TCP query, the response will also be over TCP)
+
+3. **Destination Port for DNS Query and Source Port of DNS Response:**
+
+   - **Destination Port for DNS Query:** Typically port 53
+   - **Source Port of DNS Response:** Typically port 53
+
+4. **IP Address for the DNS Query Message:**
+
+   - The DNS query is sent to the DNS server's IP address (as seen in the Destination column of the DNS query packet).
+
+   **Example Output:**
+   - **IP Address:** `<DNS_Server_IP>`
+
+5. **HTTP GET Request for Base File:**
+
+   - Apply the `http` filter in Wireshark.
+   - Look for the HTTP GET request for `http://gaia.cs.umass.edu/kurose_ross/`.
+
+   **Example Output:**
+   ```plaintext
+   No.     Time        Source                Destination           Protocol Length Info
+   3       0.010000   <Your_IP>              <gaia.cs.umass.edu_IP>  HTTP    175    GET /kurose_ross/ HTTP/1.1
+   ```
+
+   **Packet Number:** [3] (example, this will vary)
+
+6. **HTTP GET Request for Image Object:**
+
+   - Look for the HTTP GET request for `http://gaia.cs.umass.edu/kurose_ross/header_graphic_book_8E_2.jpg`.
+
+   **Example Output:**
+   ```plaintext
+   No.     Time        Source                Destination           Protocol Length Info
+   4       0.020000   <Your_IP>              <gaia.cs.umass.edu_IP>  HTTP    175    GET /kurose_ross/header_graphic_book_8E_2.jpg HTTP/1.1
+   ```
+
+   **Packet Number:** [4] (example, this will vary)
+
+7. **Number of Packets for the .jpg File:**
+
+   - To determine the number of packets used, filter by the IP address of the image request and count the packets involved in transferring the .jpg file.
+
+8. **DNS Query for Second HTTP Request:**
+
+   - Filter for DNS packets and look for the query that resolves `gaia.cs.umass.edu` for the image request.
+
+   **Example Output:**
+   ```plaintext
+   No.     Time        Source                Destination           Protocol Length Info
+   5       0.030000   <Your_IP>              <DNS_Server_IP>       DNS     65     Standard query 0x5678 A gaia.cs.umass.edu
+   ```
+
+   **Packet Number:** [5] (example, this will vary)
+
+   **DNS Caching Impact:**
+   - If DNS caching is enabled, the DNS query for the image request might not be present if the IP address was cached from the previous query. This can reduce the number of DNS queries seen in the trace.
+
+### Summary of Packet Numbers (Examples):
+
+1. **DNS Query for `gaia.cs.umass.edu`:** Packet Number [1]
+2. **DNS Response for `gaia.cs.umass.edu`:** Packet Number [2]
+3. **HTTP GET Request for Base File:** Packet Number [3]
+4. **HTTP GET Request for Image Object:** Packet Number [4]
+5. **DNS Query for Image Object:** Packet Number [5] (if a new DNS query is made)
+
+Use these steps to trace and analyze packets effectively in Wireshark.
+
+
+![alt text](image.png)![alt text](image-1.png)![alt text](image-2.png)
+Let's address your questions based on the images and details you've provided.
+
+### 1. **To what IP address is the DNS query message sent?**
+
+From the first image, we see the packet being sent from **192.168.10.120** (your machine) to **192.168.1.1** (likely the DNS server). So the DNS query message is sent to **192.168.1.1**.
+
+### 2. **Packet number for the initial HTTP GET request for the base file (`http://gaia.cs.umass.edu/kurose_ross/`)?**
+
+The image does not directly show the HTTP GET request. You can apply an HTTP filter in Wireshark (`http`) and search for the first GET request to `http://gaia.cs.umass.edu/kurose_ross/`. The packet number will be listed in Wireshark once you apply the filter.
+
+### 3. **Packet number for the HTTP GET request for the image object (`http://gaia.cs.umass.edu/kurose_ross/header_graphic_book_8E_2.jpg`)?**
+
+Similarly, apply the `http` filter and locate the packet for the GET request to `header_graphic_book_8E_2.jpg`. The packet number will be shown in the Wireshark interface.
+
+### 4. **How many packets are used to get the .jpg file?**
+
+To estimate the number of packets used to get the `.jpg` file:
+- Apply a filter for the destination IP of `gaia.cs.umass.edu` and count the number of packets exchanged between the HTTP GET request for the `.jpg` and the final HTTP response.
+- You can also count the TCP packets (including SYN, ACK, and any retransmissions).
+
+Typically, the size of the image file will determine the number of packets, and it depends on the Maximum Transmission Unit (MTU) of the network.
+
+### 5. **Packet number for the DNS query made to resolve `gaia.cs.umass.edu` for the second HTTP request?**
+
+Once again, use a DNS filter (`dns`) and search for the DNS query resolving `gaia.cs.umass.edu`. The packet number for this DNS query will be listed in Wireshark.
+
+### 6. **How does DNS caching affect the answer to the last question?**
+
+If DNS caching is enabled, the DNS query for `gaia.cs.umass.edu` might not appear for the second HTTP request for the image. This is because your operating system or browser may cache the DNS resolution from the first query, and thus it does not need to query the DNS server again. The cached IP address will be used directly.
+
+If the DNS query is cached, you will not see a second DNS query for `gaia.cs.umass.edu` in the trace. The absence of a second DNS query highlights the efficiency DNS caching brings by reducing the need for repetitive queries.![alt text](image-3.png)![alt text](image-4.png)Based on the information and the Wireshark screenshots provided:
+
+### 1. **To what IP address is the DNS query message sent?**
+
+From the second image (showing DNS queries), the DNS query message is sent to **192.168.1.1**, which is most likely your local network's DNS resolver (usually your router).
+
+### 2. **Packet number for the initial HTTP GET request for the base file `http://gaia.cs.umass.edu/kurose_ross/`:**
+
+From the first image:
+- The HTTP GET request for `/kurose_ross/` can be found in **packet 605**.
+
+### 3. **Packet number for the HTTP GET request for the image object `http://gaia.cs.umass.edu/kurose_ross/header_graphic_book_8E_2.jpg`:**
+
+From the first image:
+- The HTTP GET request for the image file `header_graphic_book_8E_3.jpg` is in **packet 717**.
+
+### 4. **How many packets are used to get the `.jpg` file?**
+
+Looking at the first image, you can see multiple HTTP exchanges between the client and server, indicating the transfer of the image file. The GET request for the image is in **packet 717**, and the response is likely delivered over multiple packets, possibly indicated by **packet 996** (JPEG JFIF image). This means roughly **3 to 4 packets** were used to transfer the image.
+
+### 5. **Packet number for the DNS query made to resolve `gaia.cs.umass.edu` for the second HTTP request:**
+
+From the second image:
+- The DNS query to resolve `gaia.cs.umass.edu` is in **packet 598**.
+
+### 6. **How DNS caching affects this process:**
+
+If DNS caching is enabled (on your computer or by an intermediary DNS resolver like your router), subsequent requests for `gaia.cs.umass.edu` (e.g., for the image) would not trigger a new DNS query. Instead, the cached IP address would be used directly, eliminating the need for repeated DNS queries. In the provided trace, it looks like there are multiple DNS queries for `gaia.cs.umass.edu`, which may indicate that DNS caching was not heavily used, or the query was not cached for long.
+
+In summary:
+- The **DNS query** for `gaia.cs.umass.edu` was **packet 598**.
+- The **initial HTTP GET request** for `/kurose_ross/` was **packet 605**.
+- The **HTTP GET request** for the image file was **packet 717**.
+- Around **3-4 packets** were used to transfer the image file.
+
+
+Let's break down each question based on the screenshots you've provided and the Wireshark packet capture:
+
+### 1. **First DNS Query for `gaia.cs.umass.edu`**
+   - **Packet Number:** The first DNS query message resolving `gaia.cs.umass.edu` is seen in **packet 598** (from the second screenshot).
+   - **UDP or TCP:** The DNS query is sent over **UDP**, as shown in the protocol column of the screenshot.
+
+### 2. **Corresponding DNS Response for the Initial DNS Query**
+   - **Packet Number:** The DNS response to the query is in **packet 599** (immediately following the query in the second screenshot).
+   - **UDP or TCP:** The DNS response is received via **UDP** (same as the query).
+
+### 3. **Destination and Source Ports**
+   - **Destination Port of the DNS Query Message:** DNS queries are typically sent to **port 53**, which is confirmed by the details in the third screenshot.
+   - **Source Port of the DNS Response Message:** The source port of the DNS response is **port 53**, as shown in the same screenshot.
+
+### 4. **IP Address to Which the DNS Query Was Sent**
+   - The DNS query was sent to **192.168.1.1**, as shown in the destination field of **packet 598** in the second screenshot.
+
+### 5. **Packet Number for the Initial HTTP GET Request for the Base File**
+   - **Packet Number:** The initial HTTP GET request for the base file `http://gaia.cs.umass.edu/kurose_ross/` is in **packet 605**, as shown in the first screenshot.
+
+### 6. **Packet Number for the HTTP GET Request for the Image**
+   - **Packet Number:** The HTTP GET request for the image file `http://gaia.cs.umass.edu/kurose_ross/header_graphic_book_8E_2.jpg` is in **packet 717**, as seen in the first screenshot.
+
+### 7. **Number of Packets Used to Get the `.jpg` File**
+   - To determine the number of packets used, we see the GET request for the image in **packet 717**, and the final JPEG response (with image data) in **packet 996**. Between these two packets, there are likely several TCP segments, including acknowledgments and parts of the image file. Roughly, around **3-5 packets** might be used for the image transfer, depending on the size of the image and the MTU of the network.
+
+### 8. **DNS Query for the Second HTTP Request**
+   - **Packet Number:** The DNS query made to resolve `gaia.cs.umass.edu` before the second HTTP request for the image is also in **packet 598**. If DNS caching was active, this query might not have been repeated.
+
+### 9. **Impact of DNS Caching**
+   - If DNS caching was enabled on the client (your machine) or intermediate DNS servers, the DNS query for `gaia.cs.umass.edu` would not have been made again for the second HTTP request for the image. Instead, the cached IP address would have been used directly. Since we see the DNS query in **packet 598**, it suggests either that caching was not in effect or that the cached data expired. DNS caching typically reduces DNS traffic by reusing previously resolved IP addresses for a set time (based on TTL values).
+
+### Summary of Packet Numbers:
+1. **First DNS Query for `gaia.cs.umass.edu`:** Packet 598
+2. **DNS Response for the Query:** Packet 599
+3. **HTTP GET for Base File:** Packet 605
+4. **HTTP GET for Image File:** Packet 717
+5. **DNS Query for the Second Request:** Packet 598 (same as for the base file)
+
+This breakdown should help you analyze the trace more clearly and understand how the DNS and HTTP processes are working together in this context.
