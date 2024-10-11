@@ -585,7 +585,7 @@ Here's how to approach tracing packets using Wireshark and answering your questi
 Use these steps to trace and analyze packets effectively in Wireshark.
 
 
-![alt text](image.png)![alt text](image-1.png)![alt text](image-2.png)
+![alt text](image.png)![alt text](../image-1.png)![alt text](image-2.png)
 Let's address your questions based on the images and details you've provided.
 
 ### 1. **To what IP address is the DNS query message sent?**
