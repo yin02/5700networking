@@ -40,36 +40,27 @@ class TicTacToeServer:
 
     def handle_client_move(self, connection_socket):
         while True:
-            client_move = connection_socket.recv(1024).decode()  # Receive data
-            print(f"Received move from client: {client_move}")
-
-            if client_move.isdigit():
-                move_index = int(client_move)  # Convert the 1-based index to 0-based
-                if 0 <= move_index < 9 and self.board[move_index] == ' ':
-                    self.board[move_index] = 'X'  # Mark the client's move as '2' (Client is Player 2)
-                    self.print_board()  # Print the updated board
-                    break
-                else:
-                    connection_socket.sendall("Invalid move. Try another position.".encode())
-            else:
-                connection_socket.sendall("Invalid move. Try another position.".encode())
-
-
-
+            client_move = connection_socket.recv(1024).decode()
+            # TODO: Implement the validation of the client's move
+            # Hint: Check if the move 1. is a digit, 2. within range, and 3. the chosen spot is empty
+            # Hint: If the move is invalid, send "Invalid move" to the client
+            # Hint: If the move is valid, update the board and break the loop
+            pass
+        self.print_board()
 
     def make_server_move(self):
         while True:
             try:
                 server_move = int(input("Enter your move (1-9): ")) - 1
-                if 0 <= server_move < 9 and self.board[server_move] == ' ':
-                    self.board[server_move] = 'O'  # Server move is marked as '1'
-                    self.print_board()  # Display the board after a server's move
-                    return server_move
+                if 0 <= server_move <= 8 and self.board[server_move] == ' ':
+                    self.board[server_move] = 'O'
+                    break
                 else:
                     print("Invalid move. Please enter a number between 1 and 9 for an empty space.")
             except ValueError:
                 print("Invalid input. Please enter a number.")
-
+        self.print_board() # Display the board after a server's move
+        return server_move
 
     def play_game(self, connection_socket):
         self.board = [' ' for _ in range(9)]
@@ -80,30 +71,17 @@ class TicTacToeServer:
             self.handle_client_move(connection_socket)
 
             winner = self.check_winner()
-            if winner:
-                if winner == 'X':
-                    connection_socket.sendall("You win".encode())
-                elif winner == 'O':
-                    connection_socket.sendall("Server wins".encode())
-                else:  # Tie
-                    connection_socket.sendall("Tie".encode())
-                game_over = True
-                continue  # Exit the loop after game over
+            # TODO: Implement game-over logic for client's move
+            # Hint: Check if there's a winner 'X' or 'O' or tie after the client's move
+            # Hint: Send appropriate message to the client and set game_over to True if the game has ended
 
-            # If no winner, the server makes a move
             if not game_over:
                 server_move = self.make_server_move()
                 winner = self.check_winner()
-                if winner:
-                    if winner == 'X':
-                        connection_socket.sendall("You win".encode())
-                    elif winner == 'O':
-                        connection_socket.sendall("Server wins".encode())
-                    else:  # Tie
-                        connection_socket.sendall("Tie".encode())
-                    game_over = True
-                else:
-                    connection_socket.sendall(str(server_move + 1).encode())  # Send 1-based index of server's move
+                # TODO: Implement game-over logic for server's move
+                # Hint: Check if there's a winner or tie after the server's move
+                # Hint: Send appropriate message to the client and set game_over to True if the game has ended
+                # Hint: If the game hasn't ended, send the server's move to the client
 
     def run(self):
         self.setup_server()

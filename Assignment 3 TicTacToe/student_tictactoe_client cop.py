@@ -19,7 +19,7 @@ class TicTacToeClient:
 
     def connect_to_server(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.client_socket.settimeout(335)  # Set a 5 second timeout
+        self.client_socket.settimeout(5)  # Set a 5 second timeout
         try:
             self.client_socket.connect((self.server_name, self.server_port))
         except socket.error as e:
@@ -27,52 +27,29 @@ class TicTacToeClient:
             sys.exit(1)
 
     def get_player_move(self):
-        while True:
-            try:
-                move = int(input("Your move (1-9): ")) - 1  # Convert to 0-based index
-                if 0 <= move < 9 and self.board[move] == ' ':
-                    return move
-                else:
-                    print("Invalid move. Please try again.")
-            except ValueError:
-                print("Invalid input. Please enter a number.")
+        # TODO: Implement the get_player_move method
+        # Hint: Use a while loop to keep asking for input until a valid move is entered
+        # Hint: A valid move is a number between 1-9 that corresponds to an empty space on the board
+        pass
 
     def make_move(self):
         move = self.get_player_move()
-        self.client_socket.send(str(move).encode())  # Send the move to the server
-        print(f"Sent move {move + 1} to server")  # Debugging print
+        self.client_socket.send(str(move).encode())
         self.board[move] = 'X'
         self.print_board()
         return move
 
-
     def handle_server_response(self):
         print("Waiting for server's move...")
         server_response = self.client_socket.recv(1024).decode()
-
-        if server_response == "You win":
-            print("Congratulations! You win!")
-            return True
-        elif server_response == "Tie":
-            print("It's a tie!")
-            return True
-        elif server_response == "Server wins":
-            print("Server wins. Better luck next time!")
-            return True
-        elif server_response == "Invalid move. Try another position.":
-            print("Invalid move. Please try again.")
-            return False
-        else:
-            try:
-                # Server's move (a number between 1 and 9)
-                move = int(server_response) - 1  # Convert to 0-based index
-                self.board[move] = 'O'  # Server's move is marked as 'O'
-                self.print_board()
-                return False
-            except ValueError:
-                print("Unexpected response from server.")
-                return True
-
+        
+        # TODO: Implement the handle_server_response method
+        # Hint: Check different possible responses from the server:
+        # - "You win", "Tie", "Server wins", "Invalid move"
+        # - If it's none of these, it's the server's move (a number)
+        # Hint: Update the board with the server's move
+        # Hint: Return True if the game is over, False otherwise
+        pass
 
     def play_game(self):
         game_over = False
