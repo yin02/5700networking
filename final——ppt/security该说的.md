@@ -23,6 +23,11 @@ For your part of the presentation, where you'll be discussing the **properties**
 - Built into modern web browsers and used extensively in applications requiring low-latency communication.
 
 
+### **TLS/SSL Encryption: Details and Implementation**
+
+TLS (Transport Layer Security) and SSL (Secure Sockets Layer) are cryptographic protocols designed to provide secure communication over a network. TLS is the successor to SSL and is widely used today due to its enhanced security features. Here’s a breakdown of its components, mechanisms, and implementation steps:
+
+
 ---
 
 ### **Advantages (优点)**
@@ -148,9 +153,6 @@ Here’s how you could integrate **WebSocket** into the presentation:
 
 
 ---
-### **TLS/SSL Encryption: Details and Implementation**
-
-TLS (Transport Layer Security) and SSL (Secure Sockets Layer) are cryptographic protocols designed to provide secure communication over a network. TLS is the successor to SSL and is widely used today due to its enhanced security features. Here’s a breakdown of its components, mechanisms, and implementation steps:
 
 ---
 
