@@ -16,6 +16,13 @@ For your part of the presentation, where you'll be discussing the **properties**
 
 - **Security Policies**: Security policies define the rules and guidelines for managing access, protecting data, and ensuring compliance within an organization. They can include access control, data classification, incident response, and disaster recovery.
 
+
+### **Properties of WebSocket**
+- WebSocket is a protocol providing full-duplex communication channels over a single TCP connection.
+- It allows for real-time data exchange between the client and server without repeated HTTP requests.
+- Built into modern web browsers and used extensively in applications requiring low-latency communication.
+
+
 ---
 
 ### **Advantages (优点)**
@@ -55,6 +62,18 @@ For your part of the presentation, where you'll be discussing the **properties**
   - Reduces the likelihood of security breaches by enforcing standards.
   - Provides a structured framework for addressing security issues.
 
+  
+### **Advantages of TLS/SSL**
+1. **Confidentiality**: Prevents unauthorized access to data.
+2. **Authentication**: Verifies the server's identity and ensures trust.
+3. **Data Integrity**: Ensures that transmitted data has not been altered.
+4. **Regulatory Compliance**: Helps meet requirements like GDPR, HIPAA, and PCI DSS.
+
+
+### **Advantages of WebSocket**
+1. **Real-Time Communication**: Ideal for applications like live chats, gaming, and real-time updates.
+2. **Efficiency**: Reduces overhead by avoiding repeated HTTP requests; only one handshake is required.
+3. **Scalability**: Supports many clients simultaneously with minimal latency.
 ---
 
 ### **Disadvantages (缺点)**
@@ -94,6 +113,21 @@ For your part of the presentation, where you'll be discussing the **properties**
   - Employees may resist or bypass security policies if they are seen as inconvenient.
   - Enforcing policies consistently across the organization can be challenging.
 
+  ### **Disadvantages of WebSocket**
+1. **Security Risks**: Vulnerable to attacks like cross-site WebSocket hijacking if not properly secured.
+2. **Firewall Challenges**: Firewalls and proxies may block WebSocket traffic due to its non-HTTP nature.
+3. **Complexity**: Implementing WebSocket securely requires expertise, including managing authentication and encryption.
+
+### **Applications of WebSocket in Secure Communication**
+1. **Live Dashboards**: Provides real-time updates in security monitoring systems.
+2. **Collaborative Tools**: Ensures efficient data exchange in shared environments like Google Docs.
+3. **IoT Devices**: Facilitates low-latency control and data transfer between devices.
+
+### **Security Considerations for WebSocket**
+1. **TLS/SSL Encryption**: Use **wss://** (WebSocket Secure) to encrypt traffic.
+2. **Authentication**: Integrate secure authentication mechanisms (e.g., token-based authentication).
+3. **Firewall Configuration**: Ensure the network allows WebSocket traffic while maintaining restrictions for unauthorized access.
+
 ---
 
 These points should help you effectively present the **properties**, **advantages**, and **disadvantages** of each topic in a clear and structured manner. You can also add examples or case studies to illustrate these points if you have time during your part of the presentation.
@@ -108,30 +142,10 @@ Here’s how you could integrate **WebSocket** into the presentation:
 
 ---
 
-### **Properties of WebSocket**
-- WebSocket is a protocol providing full-duplex communication channels over a single TCP connection.
-- It allows for real-time data exchange between the client and server without repeated HTTP requests.
-- Built into modern web browsers and used extensively in applications requiring low-latency communication.
 
-### **Advantages of WebSocket**
-1. **Real-Time Communication**: Ideal for applications like live chats, gaming, and real-time updates.
-2. **Efficiency**: Reduces overhead by avoiding repeated HTTP requests; only one handshake is required.
-3. **Scalability**: Supports many clients simultaneously with minimal latency.
 
-### **Disadvantages of WebSocket**
-1. **Security Risks**: Vulnerable to attacks like cross-site WebSocket hijacking if not properly secured.
-2. **Firewall Challenges**: Firewalls and proxies may block WebSocket traffic due to its non-HTTP nature.
-3. **Complexity**: Implementing WebSocket securely requires expertise, including managing authentication and encryption.
 
-### **Applications of WebSocket in Secure Communication**
-1. **Live Dashboards**: Provides real-time updates in security monitoring systems.
-2. **Collaborative Tools**: Ensures efficient data exchange in shared environments like Google Docs.
-3. **IoT Devices**: Facilitates low-latency control and data transfer between devices.
 
-### **Security Considerations for WebSocket**
-1. **TLS/SSL Encryption**: Use **wss://** (WebSocket Secure) to encrypt traffic.
-2. **Authentication**: Integrate secure authentication mechanisms (e.g., token-based authentication).
-3. **Firewall Configuration**: Ensure the network allows WebSocket traffic while maintaining restrictions for unauthorized access.
 
 ---
 ### **TLS/SSL Encryption: Details and Implementation**
@@ -217,11 +231,6 @@ TLS (Transport Layer Security) and SSL (Secure Sockets Layer) are cryptographic 
 
 ---
 
-### **Advantages of TLS/SSL**
-1. **Confidentiality**: Prevents unauthorized access to data.
-2. **Authentication**: Verifies the server's identity and ensures trust.
-3. **Data Integrity**: Ensures that transmitted data has not been altered.
-4. **Regulatory Compliance**: Helps meet requirements like GDPR, HIPAA, and PCI DSS.
 
 ---
 
